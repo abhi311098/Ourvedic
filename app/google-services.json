@@ -1,0 +1,114 @@
+{
+  "project_info": {
+    "project_number": "531543335178",
+    "firebase_url": "https://infirment-36a66.firebaseio.com",
+    "project_id": "infirment-36a66",
+    "storage_bucket": "infirment-36a66.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531543335178:android:dba82c534719e8e87adaf3",
+        "android_client_info": {
+          "package_name": "com.abhi.infirment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531543335178-k3hjoca6d9g5pmd7b3lpfss3279sjkl7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abhi.infirment",
+            "certificate_hash": "94b9ae8711765fa13aa248f4f03bbc809e072502"
+          }
+        },
+        {
+          "client_id": "531543335178-nkp8678342ikr68ou5b7a156db5a8f0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm6x3OcMUpF42qRXZTptdZYST9SUuUbtU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531543335178-nkp8678342ikr68ou5b7a156db5a8f0u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531543335178:android:1ec1ce97928af2af7adaf3",
+        "android_client_info": {
+          "package_name": "com.abhi.infirmenttask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531543335178-cumse7739pgvj6gma5ane9j8ccf74qhd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abhi.infirmenttask",
+            "certificate_hash": "94b9ae8711765fa13aa248f4f03bbc809e072502"
+          }
+        },
+        {
+          "client_id": "531543335178-nkp8678342ikr68ou5b7a156db5a8f0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm6x3OcMUpF42qRXZTptdZYST9SUuUbtU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531543335178-nkp8678342ikr68ou5b7a156db5a8f0u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531543335178:android:20aec5ebed154cc07adaf3",
+        "android_client_info": {
+          "package_name": "com.abhi.ourvedic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531543335178-nkp8678342ikr68ou5b7a156db5a8f0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm6x3OcMUpF42qRXZTptdZYST9SUuUbtU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531543335178-nkp8678342ikr68ou5b7a156db5a8f0u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
