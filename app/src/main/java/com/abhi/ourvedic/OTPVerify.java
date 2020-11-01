@@ -2,10 +2,13 @@ package com.abhi.ourvedic;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +29,7 @@ public class OTPVerify extends AppCompatActivity {
 
     private EditText otp;
     private Button verify;
+    private TextView resend;
     private String number;
     private String id;
     private FirebaseAuth mAuth;
@@ -44,9 +48,28 @@ public class OTPVerify extends AppCompatActivity {
                 otpVerify();
             }
         });
+        resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendVerificationcode();
+            }
+        });
+
     }
 
     private void sendVerificationcode() {
+        new CountDownTimer(60000,1000){
+            @Override
+            public void onTick(long l) {
+                resend.setText(""+1/1000);
+                resend.setEnabled(false);
+            }
+            @Override
+            public void onFinish() {
+                resend.setText("Resend Otp");
+                resend.setEnabled(true);
+            }
+        }.start();
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 number,        // Phone number to verify
                 60,                 // Timeout duration
@@ -72,7 +95,9 @@ public class OTPVerify extends AppCompatActivity {
     }
 
     private void otpVerify() {
+
         String otpv = otp.getText().toString();
+
         if (TextUtils.isEmpty(otpv)) {
             Toast.makeText(this, "Enter Number", Toast.LENGTH_SHORT).show();
         } else if (otpv.length() != 6) {
@@ -86,6 +111,7 @@ public class OTPVerify extends AppCompatActivity {
     private void init() {
         otp = findViewById(R.id.otpnumber);
         verify = findViewById(R.id.otpverify);
+        resend = findViewById(R.id.resend);
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
@@ -96,7 +122,6 @@ public class OTPVerify extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             startActivity(new Intent(OTPVerify.this,MainActivity.class));
-                            finish();
                         } else {
                             // Sign in failed, display a message and update the UI
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {

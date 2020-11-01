@@ -39,7 +39,6 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-
         progressDialog = new ProgressDialog(LoginPage.this);
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         temail = findViewById(R.id.loginemailteacher);
@@ -101,6 +100,7 @@ public class LoginPage extends AppCompatActivity {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                progressDialog.dismiss();
                                 Toast.makeText(LoginPage.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
                             }
