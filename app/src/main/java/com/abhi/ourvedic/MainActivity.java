@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.abhi.ourvedic.ui.profile.ProfileFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.profileFragment)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -81,14 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.profile:
-//                Intent intent = new Intent(HomeTeacher.this, ProfileTeacher.class);
-//                startActivity(intent);
+                startActivity(new Intent(MainActivity.this, ProfileFragment.class));
                 break;
 
             case R.id.passwordreset:
-//                Intent i = new Intent(HomeTeacher.this, ResetPasswordTeacher.class);
-//                startActivity(i);
-//                finish();
+                passwordreset();
                 break;
 
             case R.id.deleteaccount:
@@ -102,6 +100,15 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Something is wrong", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void passwordreset() {
+        SharedPreferences sh = getSharedPreferences("LoginID", Context.MODE_PRIVATE);
+        String emailaddress = sh.getString("email",null);
+        Intent intent = new Intent(MainActivity.this,ResetPassword.class);
+        intent.putExtra("email",emailaddress);
+        startActivity(intent);
+        finish();
     }
 
     private void deleteuser() {
@@ -123,6 +130,10 @@ public class MainActivity extends AppCompatActivity {
         mGoogleSignInClient.signOut().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
+                SharedPreferences sh = getSharedPreferences("LoginID", Context.MODE_PRIVATE);
+                SharedPreferences.Editor edit = sh.edit();
+                edit.clear();
+                edit.commit();
                 Intent intent = new Intent(MainActivity.this, LoginPage.class);
                 startActivity(intent);
                 finish();

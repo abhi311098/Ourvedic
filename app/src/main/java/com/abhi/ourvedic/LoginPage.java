@@ -1,11 +1,14 @@
 package com.abhi.ourvedic;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +36,7 @@ public class LoginPage extends AppCompatActivity {
     private GoogleSignInClient mgoogleSignInClient;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private static final String EMAIL = "email";
+    private TextView forgetText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +47,15 @@ public class LoginPage extends AppCompatActivity {
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         temail = findViewById(R.id.loginemailteacher);
         tpassword = findViewById(R.id.loginpasswordteacher);
+        forgetText = findViewById(R.id.forgetpassword);
 
+        forgetText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginPage.this,ForgetPassword.class));
+                finish();
+            }
+        });
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +73,6 @@ public class LoginPage extends AppCompatActivity {
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
         mgoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
     }
 
 
@@ -76,7 +87,7 @@ public class LoginPage extends AppCompatActivity {
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog_view);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        String email = temail.getText().toString().trim();
+        final String email = temail.getText().toString().trim();
         String password = tpassword.getText().toString();
 
         if (email.isEmpty()) {
@@ -95,6 +106,10 @@ public class LoginPage extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
+                                SharedPreferences sh = getSharedPreferences("LoginID", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor edit = sh.edit();
+                                edit.putString("email",email);
+                                edit.commit();
                                 Log.d(TAG, "signInWithEmail:success");
                                 gotonext();
                             } else {
@@ -164,8 +179,4 @@ public class LoginPage extends AppCompatActivity {
                 });
     }
 
-    public void phoneverify(View view){
-        startActivity(new Intent(LoginPage.this,NumberForOTP.class));
-        finish();
-    }
 }

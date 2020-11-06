@@ -1,7 +1,9 @@
 package com.abhi.ourvedic;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -41,7 +43,7 @@ public class RegistrationPage extends AppCompatActivity {
                 progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 mAuth = FirebaseAuth.getInstance();
 
-                String email = remail.getText().toString().trim();
+                final String email = remail.getText().toString().trim();
                 String password = rpassword.getText().toString();
                 String cpassword = rcpassword.getText().toString();
 
@@ -64,6 +66,10 @@ public class RegistrationPage extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
+                                        SharedPreferences sh = getSharedPreferences("LoginID", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor edit = sh.edit();
+                                        edit.putString("email",email);
+                                        edit.commit();
                                         Log.d(TAG, "createUserWithEmail:success");
                                         startActivity(new Intent(RegistrationPage.this, MainActivity.class));
                                         finish();

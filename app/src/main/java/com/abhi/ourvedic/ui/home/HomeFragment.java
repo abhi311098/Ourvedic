@@ -31,17 +31,13 @@ import java.util.TimerTask;
 
 public class HomeFragment extends Fragment {
 
-
     LinearLayout SliderDots;
     private int dotscount;
     private ImageView dots[];
     ViewPager viewPager;
-    private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         ArrayList<item> items = new ArrayList<>();
@@ -108,7 +104,6 @@ public class HomeFragment extends Fragment {
     }
 
     public class myTimeTask extends TimerTask{
-
         @Override
         public void run() {
             getActivity().runOnUiThread(new Runnable() {
@@ -139,6 +134,4 @@ public class HomeFragment extends Fragment {
             });
         }
     }
-
-
 }
