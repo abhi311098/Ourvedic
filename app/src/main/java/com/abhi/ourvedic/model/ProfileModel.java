@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey;
 @Entity
 public class ProfileModel {
 
-    @PrimaryKey (autoGenerate = true)
-    int id ;
+    @PrimaryKey
+    int id = 1;
     String email;
     String name;
     String house;

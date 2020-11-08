@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.abhi.ourvedic.roomdatabase.MyDatabase;
 import com.abhi.ourvedic.ui.profile.ProfileFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -31,6 +32,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -130,10 +132,9 @@ public class MainActivity extends AppCompatActivity {
         mGoogleSignInClient.signOut().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                SharedPreferences sh = getSharedPreferences("LoginID", Context.MODE_PRIVATE);
-                SharedPreferences.Editor edit = sh.edit();
-                edit.clear();
-                edit.commit();
+                MyDatabase myDatabase = Room.databaseBuilder(MainActivity.this, MyDatabase.class, "profiledata")
+                        .allowMainThreadQueries().build();
+                myDatabase.dao().deleteprofiledata(1);
                 Intent intent = new Intent(MainActivity.this, LoginPage.class);
                 startActivity(intent);
                 finish();

@@ -1,6 +1,7 @@
 package com.abhi.ourvedic.roomdatabase;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -17,4 +18,6 @@ public interface DAO {
     @Query("Select * from ProfileModel")
     List<ProfileModel> getProfile();
 
+    @Query("Delete from ProfileModel where id = :pid")
+    void deleteprofiledata (int pid);
 }

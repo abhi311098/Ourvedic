@@ -3,9 +3,7 @@ package com.abhi.ourvedic.ui.profile;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -19,7 +17,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,10 +31,8 @@ import com.abhi.ourvedic.R;
 import com.abhi.ourvedic.model.ProfileModel;
 import com.abhi.ourvedic.roomdatabase.MyDatabase;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -45,15 +40,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,20 +53,19 @@ public class ProfileFragment extends Fragment {
     private ProgressDialog progressDialog;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private ImageView image;
-    private EditText name, housenumber, streetnumber, arealocality, landmark, pincode, email, number;
+    private EditText uname, uhousenumber, ustreetnumber, uarealocality, ulandmark, upincode, uemail, unumber;
     private Button submit;
-    private MyDatabase myDatabase;
+    private String permissions[] = {Manifest.permission.READ_EXTERNAL_STORAGE};
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = database.getReference("Profile").child(user.getUid());
     private DatabaseReference imgRef = database.getReference("ProfilePic").child(user.getUid());
-    private String permissions[] = {Manifest.permission.READ_EXTERNAL_STORAGE};
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
     private HashMap<String, Object> hashMap = new HashMap<>();
     private String file = null;
-    byte bb[];
-    Bitmap thumbnail;
+    private byte bb[];
+    private Bitmap thumbnail;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,8 +73,8 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         init(view);
-        setImage();
         roomdb();
+        setImage();
         functionpermission();
         image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,51 +93,51 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    private void dbsetup() {
-        myDatabase = Room.databaseBuilder(getActivity(), MyDatabase.class, "profiledata")
-                .allowMainThreadQueries().build();
-    }
-
     private void roomdb() {
-        myDatabase = Room.databaseBuilder(getActivity(), MyDatabase.class, "profiledata")
+        MyDatabase myDatabase = Room.databaseBuilder(getActivity(), MyDatabase.class, "profiledata")
                 .allowMainThreadQueries().build();
         List<ProfileModel> profileModels = myDatabase.dao().getProfile();
         boolean ch = profileModels.isEmpty();
+        Log.e("errorres",""+profileModels.size());
+        Toast.makeText(getActivity(), ""+profileModels.size(), Toast.LENGTH_SHORT).show();
+        Log.e("errorres", "roomdb: "+ch );
         if (ch==false) {
+            Toast.makeText(getActivity(), ""+ch, Toast.LENGTH_LONG).show();
             for (int i = 0; i < profileModels.size(); i++) {
-                name.setText(String.valueOf(profileModels.get(i).getName()));
-                housenumber.setText(String.valueOf(profileModels.get(i).getHouse()));
-                streetnumber.setText(String.valueOf(profileModels.get(i).getStreet()));
-                arealocality.setText(String.valueOf(profileModels.get(i).getArea()));
-                landmark.setText(String.valueOf(profileModels.get(i).getLandmark()));
-                pincode.setText(String.valueOf(profileModels.get(i).getPincode()));
-                email.setText(String.valueOf(profileModels.get(i).getEmail()));
-                number.setText(String.valueOf(profileModels.get(i).getNumber()));
+                Toast.makeText(getActivity(), ""+profileModels.get(i).getId(), Toast.LENGTH_SHORT).show();
+                uname.setText(String.valueOf(profileModels.get(i).getName()));
+                uhousenumber.setText(String.valueOf(profileModels.get(i).getHouse()));
+                ustreetnumber.setText(String.valueOf(profileModels.get(i).getStreet()));
+                uarealocality.setText(String.valueOf(profileModels.get(i).getArea()));
+                ulandmark.setText(String.valueOf(profileModels.get(i).getLandmark()));
+                upincode.setText(String.valueOf(profileModels.get(i).getPincode()));
+                uemail.setText(String.valueOf(profileModels.get(i).getEmail()));
+                unumber.setText(String.valueOf(profileModels.get(i).getNumber()));
             }
         } else {
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        String u_name = snapshot.child("" + "name").getValue(String.class);
-                        name.setText(u_name);
-                        String u_house = snapshot.child("house").getValue(String.class);
-                        housenumber.setText(u_house);
-                        String u_street = snapshot.child("street").getValue(String.class);
-                        streetnumber.setText(u_street);
-                        String u_area = snapshot.child("area").getValue(String.class);
-                        arealocality.setText(u_area);
-                        String u_land = snapshot.child("land").getValue(String.class);
-                        landmark.setText(u_land);
-                        String u_pincode = snapshot.child("pincode").getValue(String.class);
-                        pincode.setText(u_pincode);
-                        String u_email = snapshot.child("email").getValue(String.class);
-                        email.setText(u_email);
-                        String u_number = snapshot.child("number").getValue(String.class);
-                        number.setText(u_number);
-
-                        dbsetup();
-                        ProfileModel profileModel = new ProfileModel(u_email, u_name, u_house, u_street, u_area, u_pincode, u_land, u_number);
+                        String name = snapshot.child("" + "name").getValue(String.class);
+                        uname.setText(name);
+                        String house = snapshot.child("house").getValue(String.class);
+                        uhousenumber.setText(house);
+                        String street = snapshot.child("street").getValue(String.class);
+                        ustreetnumber.setText(street);
+                        String area = snapshot.child("area").getValue(String.class);
+                        uarealocality.setText(area);
+                        String land = snapshot.child("land").getValue(String.class);
+                        ulandmark.setText(land);
+                        String pincode = snapshot.child("pincode").getValue(String.class);
+                        upincode.setText(pincode);
+                        String email = snapshot.child("email").getValue(String.class);
+                        uemail.setText(email);
+                        String number = snapshot.child("number").getValue(String.class);
+                        unumber.setText(number);
+                        MyDatabase myDatabase = Room.databaseBuilder(getActivity(), MyDatabase.class, "profiledata")
+                                .allowMainThreadQueries().build();
+                        ProfileModel profileModel = new ProfileModel(email, name, house, street, area, pincode, land, number);
                         myDatabase.dao().insertion(profileModel);
                     } else {
                         profilestudent();
@@ -162,18 +152,17 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-
     private void init(View view) {
         progressDialog = new ProgressDialog(getActivity());
         image = view.findViewById(R.id.imagestudent);
-        name = view.findViewById(R.id.namestudent);
-        housenumber = view.findViewById(R.id.housenumberstudent);
-        streetnumber = view.findViewById(R.id.streetnumberstudent);
-        arealocality = view.findViewById(R.id.arealocalityteacher);
-        landmark = view.findViewById(R.id.landmarkstudent);
-        pincode = view.findViewById(R.id.pincodestudent);
-        email = view.findViewById(R.id.emailteacher);
-        number = view.findViewById(R.id.numberteacher);
+        uname = view.findViewById(R.id.namestudent);
+        uhousenumber = view.findViewById(R.id.housenumberstudent);
+        ustreetnumber = view.findViewById(R.id.streetnumberstudent);
+        uarealocality = view.findViewById(R.id.arealocalityteacher);
+        ulandmark = view.findViewById(R.id.landmarkstudent);
+        upincode = view.findViewById(R.id.pincodestudent);
+        uemail = view.findViewById(R.id.emailteacher);
+        unumber = view.findViewById(R.id.numberteacher);
         submit = view.findViewById(R.id.profileteacher);
     }
 
@@ -262,19 +251,19 @@ public class ProfileFragment extends Fragment {
         if (ActivityCompat.checkSelfPermission(getActivity(), permissions[0]) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), permissions, 2);
         } else {
-            Toast.makeText(getActivity(), "Give Permission", Toast.LENGTH_SHORT).show();
+            
         }
     }
 
     public void profilestudent() {
-        String name = this.name.getText().toString();
-        String house = housenumber.getText().toString();
-        String street = streetnumber.getText().toString();
-        String area = arealocality.getText().toString();
-        String land = landmark.getText().toString();
-        String pincode = this.pincode.getText().toString();
-        String email = this.email.getText().toString();
-        String number = this.number.getText().toString();
+        String name = this.uname.getText().toString();
+        String house = uhousenumber.getText().toString();
+        String street = ustreetnumber.getText().toString();
+        String area = uarealocality.getText().toString();
+        String land = ulandmark.getText().toString();
+        String pincode = this.upincode.getText().toString();
+        String email = this.uemail.getText().toString();
+        String number = this.unumber.getText().toString();
 
         if (name.isEmpty()) {
             Toast.makeText(getActivity(), "Enter Your Name ", Toast.LENGTH_SHORT).show();
@@ -295,7 +284,9 @@ public class ProfileFragment extends Fragment {
         } else if (number.equals("")) {
             Toast.makeText(getActivity(), "Enter Your Number ", Toast.LENGTH_SHORT).show();
         } else {
-            dbsetup();
+
+            MyDatabase myDatabase = Room.databaseBuilder(getActivity(), MyDatabase.class, "profiledata")
+                    .allowMainThreadQueries().build();
             ProfileModel profileModel = new ProfileModel(email, name, house, street, area, pincode, land, number);
             myDatabase.dao().insertion(profileModel);
 
