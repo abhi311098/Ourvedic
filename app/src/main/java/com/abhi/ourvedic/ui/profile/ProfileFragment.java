@@ -75,6 +75,7 @@ public class ProfileFragment extends Fragment {
     private HashMap<String, Object> hashMap = new HashMap<>();
     private String file = null;
     byte bb[];
+    Bitmap thumbnail;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -189,11 +190,12 @@ public class ProfileFragment extends Fragment {
                 int columnIndex = c.getColumnIndex(filepath[0]);
                 String picturePath = c.getString(columnIndex);
                 c.close();
-                Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
+                thumbnail = (BitmapFactory.decodeFile(picturePath));
                 image.setImageBitmap(thumbnail);
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                 thumbnail.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
                 bb = bytes.toByteArray();
+                
                 progressDialog.setCancelable(false);
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progress_dialog_view);
@@ -206,25 +208,6 @@ public class ProfileFragment extends Fragment {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             if (taskSnapshot.getTask().isSuccessful()) {
                                 file = taskSnapshot.getMetadata().getPath();
-                                File direct = new File(Environment.getExternalStorageDirectory() + "/DirName");
-
-                                if (!direct.exists()) {
-                                    File wallpaperDirectory = new File("/sdcard/DirName/");
-                                    wallpaperDirectory.mkdirs();
-                                }
-
-                                File file = new File("/sdcard/DirName/", "profilepic.jpg");
-                                if (file.exists()) {
-                                    file.delete();
-                                }
-                                try {
-                                    FileOutputStream out = new FileOutputStream(file);
-                                    //.compress(Bitmap.CompressFormat.JPEG, 100, out);
-                                    out.flush();
-                                    out.close();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
                                 hashMap.put("profilepicpath", file);
                                 imgRef.setValue(hashMap);
                                 progressDialog.dismiss();
