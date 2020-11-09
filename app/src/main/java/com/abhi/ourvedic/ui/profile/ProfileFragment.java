@@ -3,11 +3,14 @@ package com.abhi.ourvedic.ui.profile;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -30,6 +33,7 @@ import android.widget.Toast;
 import com.abhi.ourvedic.R;
 import com.abhi.ourvedic.model.ProfileModel;
 import com.abhi.ourvedic.roomdatabase.MyDatabase;
+import com.abhi.ourvedic.roomdatabase.RoomDB;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -55,6 +59,7 @@ public class ProfileFragment extends Fragment {
     private ImageView image;
     private EditText uname, uhousenumber, ustreetnumber, uarealocality, ulandmark, upincode, uemail, unumber;
     private Button submit;
+    //private MyDatabase myDatabase = RoomDB.database(getActivity());
     private String permissions[] = {Manifest.permission.READ_EXTERNAL_STORAGE};
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
@@ -94,9 +99,9 @@ public class ProfileFragment extends Fragment {
     }
 
     private void roomdb() {
-        MyDatabase myDatabase = Room.databaseBuilder(getActivity(), MyDatabase.class, "profiledata")
-                .allowMainThreadQueries().build();
-        List<ProfileModel> profileModels = myDatabase.dao().getProfile();
+        MyDatabase myDatabase1 = Room.databaseBuilder(getActivity(), MyDatabase.class, "profiledata")
+            .allowMainThreadQueries().build();
+        List<ProfileModel> profileModels = myDatabase1.dao().getProfile();
         boolean ch = profileModels.isEmpty();
         Log.e("errorres",""+profileModels.size());
         Toast.makeText(getActivity(), ""+profileModels.size(), Toast.LENGTH_SHORT).show();
@@ -284,11 +289,22 @@ public class ProfileFragment extends Fragment {
         } else if (number.equals("")) {
             Toast.makeText(getActivity(), "Enter Your Number ", Toast.LENGTH_SHORT).show();
         } else {
+            ConnectivityManager manager = (ConnectivityManager) getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+            if (networkInfo != null) {
+                MyDatabase myDatabase = Room.databaseBuilder(getActivity(), MyDatabase.class, "profiledata")
+                        .allowMainThreadQueries().build();
+                if (myDatabase==null){
+                    ProfileModel profileModel = new ProfileModel(email, name, house, street, area, pincode, land, number);
+                    myDatabase.dao().insertion(profileModel);
+                } else {
+                    int pid = 1;
+                    myDatabase.dao().updateprofiledata(pincode,number,land,street,house,email,name,pid);
+                }
+            } else {
+                Toast.makeText(getActivity(), "No Internet Connection\n Please turn on mobile data or wifi", Toast.LENGTH_SHORT).show();
+            }
 
-            MyDatabase myDatabase = Room.databaseBuilder(getActivity(), MyDatabase.class, "profiledata")
-                    .allowMainThreadQueries().build();
-            ProfileModel profileModel = new ProfileModel(email, name, house, street, area, pincode, land, number);
-            myDatabase.dao().insertion(profileModel);
 
             hashMap.put("name", name);
             hashMap.put("house", house);

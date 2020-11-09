@@ -18,6 +18,12 @@ public interface DAO {
     @Query("Select * from ProfileModel")
     List<ProfileModel> getProfile();
 
+    @Query("Update ProfileModel set pincode = :uppincode,number = :upnumber ," +
+            " landmark = :uplandmark, street = :upstreet," +
+            " house = :uphouse, name = :upname, email = :upemail where id = :pid")
+    void updateprofiledata(String uppincode,String upnumber, String uplandmark,
+                           String upstreet,String uphouse, String upemail,String upname,int pid);
+
     @Query("Delete from ProfileModel where id = :pid")
     void deleteprofiledata (int pid);
 }
