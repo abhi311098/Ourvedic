@@ -20,7 +20,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.abhi.ourvedic.R;
 import com.abhi.ourvedic.ListAdapter;
-import com.abhi.ourvedic.R;
 import com.abhi.ourvedic.ViewPagerAdapter;
 import com.abhi.ourvedic.item;
 
@@ -39,6 +38,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        
 
         ArrayList<item> items = new ArrayList<>();
         items.add(new item(101, "Agarbatti", "Incense stick",R.drawable.h101));

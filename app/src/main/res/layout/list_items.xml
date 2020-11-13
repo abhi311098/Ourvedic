@@ -41,6 +41,13 @@
             android:textColor="#000000"
             android:textSize="15sp"
             android:layout_alignParentEnd="true"/>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="?android:attr/listDivider"
+            android:layout_toLeftOf="@id/item_add"/>
     </RelativeLayout>
 
 </LinearLayout>

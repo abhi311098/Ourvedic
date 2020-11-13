@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +45,7 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
 
         progressDialog = new ProgressDialog(LoginPage.this);
-        SignInButton signInButton = findViewById(R.id.sign_in_button);
+        RelativeLayout signInButton = findViewById(R.id.sign_in_button);
         temail = findViewById(R.id.loginemailteacher);
         tpassword = findViewById(R.id.loginpasswordteacher);
         forgetText = findViewById(R.id.forgetpassword);
@@ -53,7 +54,6 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginPage.this,ForgetPassword.class));
-                finish();
             }
         });
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +79,6 @@ public class LoginPage extends AppCompatActivity {
     public void registrationbutton(View view) {
         Intent i = new Intent(LoginPage.this, RegistrationPage.class);
         startActivity(i);
-        finish();
     }
 
     public void loginbuttonteacher(View view) {
