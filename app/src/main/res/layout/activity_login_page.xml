@@ -88,12 +88,12 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:padding="15dp"
-                android:textColor="#000000"
-                android:textStyle="bold"
                 android:background="@drawable/bg_login_page_button2"
                 android:onClick="loginbuttonteacher"
-                android:text="       login       " />
+                android:padding="15dp"
+                android:text="        login        "
+                android:textColor="#000000"
+                android:textStyle="bold" />
 
             <Button
                 android:layout_width="wrap_content"

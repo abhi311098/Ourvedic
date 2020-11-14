@@ -1,6 +1,7 @@
 package com.abhi.ourvedic;
 
 import android.app.Activity;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,18 @@ import java.util.ArrayList;
 public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
 
     ArrayList <Integer> item_cart = new ArrayList<>();
+    Vibrator Vibrator;
+
+    public ListAdapter(Activity activity){
+        super(activity, 0);
+    }
 
     public ListAdapter(Activity context, ArrayList<com.abhi.ourvedic.item> al) {
         super(context, 0, al);
+        Vibrator = (Vibrator)getContext().getSystemService(MainActivity.VIBRATOR_SERVICE);
+    }
+    public ArrayList get_item_cart(){
+        return item_cart;
     }
 
     @NonNull
@@ -49,11 +59,9 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
             public void onClick(View view) {
                 item_cart.add(currentitem.getItem_id());
                 Toast.makeText(getContext(),"Item added!",Toast.LENGTH_SHORT).show();
+                Vibrator.vibrate(500);
             }
         });
-
-
-
 
         return listItemView;
     }
