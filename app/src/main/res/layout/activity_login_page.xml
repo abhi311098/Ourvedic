@@ -30,6 +30,7 @@
                 android:id="@+id/loginemailteacher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:textColor="#ffffff"
                 android:backgroundTint="@android:color/transparent"
                 android:textCursorDrawable="@drawable/cursor_color"

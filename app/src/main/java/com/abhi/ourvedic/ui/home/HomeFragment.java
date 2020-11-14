@@ -27,6 +27,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Vector;
 
 public class HomeFragment extends Fragment {
 
@@ -58,8 +59,6 @@ public class HomeFragment extends Fragment {
         ListAdapter itemsAdapter = new ListAdapter(getActivity(), items);
         ListView listView = root.findViewById(R.id.list);
         listView.setAdapter(itemsAdapter);
-
-        ArrayList item_cart = itemsAdapter.get_item_cart();
 
 
         viewPager = root.findViewById(R.id.viewPager);
