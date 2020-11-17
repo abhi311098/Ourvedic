@@ -55,6 +55,26 @@ public class HomeFragment extends Fragment {
         items.add(new item(112, "Dhaga", "Red Thread",R.drawable.h112));
         items.add(new item(113, "cheenee", "Sugar",R.drawable.h113));
         items.add(new item(114, "Prasad", "Prasad",R.drawable.h114));
+        items.add(new item(115, "Havan Samagri", "Havan content",R.drawable.h115));
+        items.add(new item(116, "Diya Stand", "Light lamps",R.drawable.h116));
+        items.add(new item(117, "Lakadee", "Firewood",R.drawable.h117));
+        items.add(new item(118, "doodh", "Milk",R.drawable.h118));
+        items.add(new item(119, "shahad", "Honey",R.drawable.h119));
+        items.add(new item(120, "kesar", "Saffron",R.drawable.h120));
+        items.add(new item(121, "Kheer", "Kheer",R.drawable.h121));
+        items.add(new item(122, "Panjiri", "Panjiri",R.drawable.h122));
+        items.add(new item(123, "naariyal", "Coconut",R.drawable.h123));
+        items.add(new item(124, "saphed dhaaga", "White thread",R.drawable.h124));
+        items.add(new item(125, "phal", "Fruits",R.drawable.h125));
+        items.add(new item(126, "Chawal", "Rice",R.drawable.h126));
+        items.add(new item(127, "Elaichi", "Cardamom ",R.drawable.h127));
+        items.add(new item(128, "chandan", "Sandalwood",R.drawable.h128));
+        items.add(new item(129, "Halva", "Halva",R.drawable.h129));
+        items.add(new item(130, "Pila Chawal", "Yellow rice",R.drawable.h130));
+        items.add(new item(131, "peele vastr", "Yellow clothes",R.drawable.h131));
+        items.add(new item(132, "Agarwood", "Agarwood",R.drawable.h132));
+        items.add(new item(133, "laung", "Cloves",R.drawable.h133));
+
 
         ListAdapter itemsAdapter = new ListAdapter(getActivity(), items);
         ListView listView = root.findViewById(R.id.list);
