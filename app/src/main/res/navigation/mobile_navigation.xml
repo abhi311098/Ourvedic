@@ -13,15 +13,15 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.abhi.ourvedic.ui.gallery.GalleryFragment"
+        android:name="com.abhi.ourvedic.ui.booking.BookingFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_booking" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.abhi.ourvedic.ui.slideshow.SlideshowFragment"
+        android:name="com.abhi.ourvedic.ui.settings.SettingsFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/profileFragment"

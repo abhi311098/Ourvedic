@@ -7,8 +7,8 @@
     <string name="nav_header_desc">Navigation header</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_gallery">Booking</string>
+    <string name="menu_slideshow">Settings</string>
     <string name="profile">Profile</string>
     <string name="passwordreset">Password Reset</string>
     <string name="deleteaccount">Delete Account</string>
