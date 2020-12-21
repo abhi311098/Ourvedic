@@ -44,23 +44,23 @@ public class HomeFragment extends Fragment {
         items.add(new item(101, "Agarbatti", "Incense stick",R.drawable.h101));
         items.add(new item(102, "Ghee", "Ghee",R.drawable.h102));
         items.add(new item(103, "Kumkuma", "Kumkuma",R.drawable.h103));
-        items.add(new item(104, "phool", "Flowers",R.drawable.h104));
+        items.add(new item(104, "Phool", "Flowers",R.drawable.h104));
         items.add(new item(105, "Rudraksha", "Rudraksha",R.drawable.h105));
-        items.add(new item(106, "chandan", "Sandalwood",R.drawable.h106));
+        items.add(new item(106, "Chandan", "Sandalwood",R.drawable.h106));
         items.add(new item(107, "Sindoor", "Vermilion red",R.drawable.h107));
         items.add(new item(108, "Tulasi", "Tulasi",R.drawable.h108));
-        items.add(new item(109, "haldee", "Turmeric",R.drawable.h109));
+        items.add(new item(109, "Haldee", "Turmeric",R.drawable.h109));
         items.add(new item(110, "Vibhuti", "Vibhuti",R.drawable.h110));
         items.add(new item(111, "Panchagavya", "Panchagavya ",R.drawable.h111));
         items.add(new item(112, "Dhaga", "Red Thread",R.drawable.h112));
-        items.add(new item(113, "cheenee", "Sugar",R.drawable.h113));
+        items.add(new item(113, "Cheenee", "Sugar",R.drawable.h113));
         items.add(new item(114, "Prasad", "Prasad",R.drawable.h114));
         items.add(new item(115, "Havan Samagri", "Havan content",R.drawable.h115));
         items.add(new item(116, "Diya Stand", "Light lamps",R.drawable.h116));
         items.add(new item(117, "Lakadee", "Firewood",R.drawable.h117));
-        items.add(new item(118, "doodh", "Milk",R.drawable.h118));
-        items.add(new item(119, "shahad", "Honey",R.drawable.h119));
-        items.add(new item(120, "kesar", "Saffron",R.drawable.h120));
+        items.add(new item(118, "Doodh", "Milk",R.drawable.h118));
+        items.add(new item(119, "Shahad", "Honey",R.drawable.h119));
+        items.add(new item(120, "Kesar", "Saffron",R.drawable.h120));
         items.add(new item(121, "Kheer", "Kheer",R.drawable.h121));
         items.add(new item(122, "Panjiri", "Panjiri",R.drawable.h122));
         items.add(new item(123, "naariyal", "Coconut",R.drawable.h123));
@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment {
         items.add(new item(130, "Pila Chawal", "Yellow rice",R.drawable.h130));
         items.add(new item(131, "peele vastr", "Yellow clothes",R.drawable.h131));
         items.add(new item(132, "Agarwood", "Agarwood",R.drawable.h132));
-        items.add(new item(133, "laung", "Cloves",R.drawable.h133));
+        items.add(new item(133, "Laung", "Cloves",R.drawable.h133));
 
 
         ListAdapter itemsAdapter = new ListAdapter(getActivity(), items);

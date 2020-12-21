@@ -21,7 +21,6 @@
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -31,6 +30,8 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Admin_Panel"></activity>
+        <activity android:name=".Billing_Details" />
         <activity android:name=".CartActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

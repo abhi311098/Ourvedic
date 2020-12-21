@@ -22,29 +22,97 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:id="@+id/Dharamshala_img"
+                    android:src="@drawable/h104"
+                    android:scaleType="centerCrop"
+                    android:layout_height="150dp"
+                    android:layout_width="match_parent" />
+                <TextView
+                    android:id="@+id/tv_Dharamshala"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/Dharamshala_img"
+                    android:text="Dharamshala"
+                    android:gravity="center_vertical"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price : X000rs"
+                    android:textColor="@android:color/black"
+                    android:layout_below="@id/tv_Dharamshala"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="15dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="    Add    "
+                    android:textColor="@android:color/white"
+                    android:layout_below="@id/Dharamshala_img"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    android:background="@color/colorPrimary"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:padding="10dp"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            app:cardElevation="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
                     android:id="@+id/pandit_img"
                     android:src="@drawable/h101"
                     android:scaleType="centerCrop"
                     android:layout_height="150dp"
                     android:layout_width="match_parent" />
                 <TextView
+                    android:id="@+id/tv_pandit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/pandit_img"
                     android:text="Pandit Ji"
-                    android:gravity="center_vertical"
                     android:textColor="@android:color/black"
-                    android:textSize="16dp"
-                    android:layout_margin="15dp" />
+                    android:textSize="16sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart = "15dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price : 1000rs"
                     android:textColor="@android:color/black"
+                    android:layout_below="@id/tv_pandit"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="15dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="    Add    "
+                    android:textColor="@android:color/white"
                     android:layout_below="@id/pandit_img"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    android:background="@color/colorPrimary"
                     android:layout_alignParentEnd="true"
-                    android:layout_margin="15dp"/>
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:padding="10dp"/>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
@@ -64,23 +132,40 @@
                     android:layout_height="150dp"
                     android:layout_width="match_parent" />
                 <TextView
+                    android:id="@+id/tv_molvi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/molvi_img"
-                    android:text="molvi Ji"
+                    android:text="Molvi Ji"
                     android:gravity="center_vertical"
                     android:textColor="@android:color/black"
                     android:textSize="16dp"
-                    android:layout_margin="15dp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="15dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price : 1000rs"
                     android:textColor="@android:color/black"
+                    android:layout_below="@id/tv_molvi"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="15dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="    Add    "
+                    android:textColor="@android:color/white"
                     android:layout_below="@id/molvi_img"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    android:background="@color/colorPrimary"
                     android:layout_alignParentEnd="true"
-                    android:layout_margin="15dp"/>
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:padding="10dp"/>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
@@ -99,6 +184,7 @@
                     android:layout_height="150dp"
                     android:layout_width="match_parent" />
                 <TextView
+                    android:id="@+id/tv_father"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/father_img"
@@ -106,51 +192,32 @@
                     android:gravity="center_vertical"
                     android:textColor="@android:color/black"
                     android:textSize="16dp"
-                    android:layout_margin="15dp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="15dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price : 1000rs"
                     android:textColor="@android:color/black"
+                    android:layout_below="@id/tv_father"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="15dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="    Add    "
+                    android:textColor="@android:color/white"
                     android:layout_below="@id/father_img"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    android:background="@color/colorPrimary"
                     android:layout_alignParentEnd="true"
-                    android:layout_margin="15dp"/>
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            app:cardElevation="8dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/sikh_img"
-                    android:src="@drawable/h104"
-                    android:scaleType="centerCrop"
-                    android:layout_height="150dp"
-                    android:layout_width="match_parent" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/sikh_img"
-                    android:text="Sikh Ji"
-                    android:gravity="center_vertical"
-                    android:textColor="@android:color/black"
-                    android:textSize="16dp"
-                    android:layout_margin="15dp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Price : 1000rs"
-                    android:textColor="@android:color/black"
-                    android:layout_below="@id/sikh_img"
-                    android:textSize="16dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_margin="15dp"/>
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:padding="10dp"/>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
