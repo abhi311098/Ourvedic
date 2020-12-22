@@ -39,10 +39,10 @@
                 android:value=".MainActivity" />
         </activity>
 
-        <service
-            android:name=".service.ServiceDataWifi"
-            android:enabled="true"
-            android:exported="true" />
+<!--        <service-->
+<!--            android:name=".service.ServiceDataWifi"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true" />-->
 
         <activity android:name=".ResetPassword" />
         <activity android:name=".ForgetPassword">

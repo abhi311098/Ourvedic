@@ -114,7 +114,7 @@ public class LoginPage extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                SharedPreferences sh = getSharedPreferences("LoginID", Context.MODE_PRIVATE);
+                                SharedPreferences sh = getSharedPreferences("email", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor edit = sh.edit();
                                 edit.putString("email",email);
                                 edit.commit();
@@ -144,7 +144,6 @@ public class LoginPage extends AppCompatActivity {
         Intent signInIntent = mgoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, 1001);
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -176,7 +175,6 @@ public class LoginPage extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             progressDialog.dismiss();
                             gotonext();
-                            Toast.makeText(LoginPage.this, FirebaseAuth.getInstance().getCurrentUser().getUid(), Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             progressDialog.dismiss();

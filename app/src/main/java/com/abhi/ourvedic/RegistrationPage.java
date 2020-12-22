@@ -66,7 +66,7 @@ public class RegistrationPage extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
-                                        SharedPreferences sh = getSharedPreferences("LoginID", Context.MODE_PRIVATE);
+                                        SharedPreferences sh = getSharedPreferences("email", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor edit = sh.edit();
                                         edit.putString("email",email);
                                         edit.commit();
