@@ -30,9 +30,13 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Admin_Panel_Login"></activity>
+        <activity android:name=".Admin_Panel_Login">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginPage" />
+        </activity>
         <activity android:name=".Current_Ordre_Ap" />
-        <activity android:name=".Admin_Panel" />
+        <activity android:name=".Admin_Panel" ></activity>
         <activity android:name=".Billing_Details" />
         <activity android:name=".CartActivity">
             <meta-data
