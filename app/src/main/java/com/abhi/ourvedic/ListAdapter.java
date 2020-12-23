@@ -50,6 +50,9 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
         TextView numberTextView = listItemView.findViewById(R.id.default_textView);
         numberTextView.setText(currentitem.getItem_name());
 
+        TextView priceTextView = listItemView.findViewById(R.id.item_price);
+        priceTextView.setText(currentitem.getItem_Price());
+
         ImageView imageResource = listItemView.findViewById(R.id.image);
         imageResource.setImageResource(currentitem.getItem_image());
 

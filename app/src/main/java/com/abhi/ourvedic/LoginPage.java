@@ -54,7 +54,7 @@ public class LoginPage extends AppCompatActivity {
         login_as_admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(LoginPage.this, Admin_Panel.class);
+                Intent i = new Intent(LoginPage.this, Admin_Panel_Login.class);
                 startActivity(i);
             }
         });

@@ -5,11 +5,13 @@ public class item {
     private String item_local_name;
     private String item_name;
     int item_image;
-    public item(int item_id, String item_local_name, String item_name, int item_image){
+    int price;
+    public item(int item_id, String item_local_name, String item_name, int item_image, int price){
         this.item_id = item_id;
         this.item_local_name = item_local_name;
         this.item_name = item_name;
         this.item_image = item_image;
+        this.price = price;
     }
 
     public int getItem_id() {
@@ -26,5 +28,9 @@ public class item {
 
     public int getItem_image() {
         return item_image;
+    }
+
+    public int getItem_Price() {
+        return price;
     }
 }
