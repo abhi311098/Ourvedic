@@ -5,7 +5,7 @@ public class item {
     private String item_local_name;
     private String item_name;
     int item_image;
-    int price;
+    private int price;
     public item(int item_id, String item_local_name, String item_name, int item_image, int price){
         this.item_id = item_id;
         this.item_local_name = item_local_name;

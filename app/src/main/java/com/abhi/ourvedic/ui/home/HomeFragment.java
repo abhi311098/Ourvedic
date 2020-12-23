@@ -63,15 +63,15 @@ public class HomeFragment extends Fragment {
         items.add(new item(120, "Kesar", "Saffron",R.drawable.h120, 100));
         items.add(new item(121, "Kheer", "Kheer",R.drawable.h121, 100));
         items.add(new item(122, "Panjiri", "Panjiri",R.drawable.h122, 100));
-        items.add(new item(123, "naariyal", "Coconut",R.drawable.h123, 100));
-        items.add(new item(124, "saphed dhaaga", "White thread",R.drawable.h124, 100));
-        items.add(new item(125, "phal", "Fruits",R.drawable.h125, 100));
+        items.add(new item(123, "Naariyal", "Coconut",R.drawable.h123, 100));
+        items.add(new item(124, "Saphed Dhaaga", "White thread",R.drawable.h124, 100));
+        items.add(new item(125, "Phal", "Fruits",R.drawable.h125, 100));
         items.add(new item(126, "Chawal", "Rice",R.drawable.h126, 100));
         items.add(new item(127, "Elaichi", "Cardamom ",R.drawable.h127, 100));
-        items.add(new item(128, "chandan", "Sandalwood",R.drawable.h128, 100));
+        items.add(new item(128, "Chandan", "Sandalwood",R.drawable.h128, 100));
         items.add(new item(129, "Halva", "Halva",R.drawable.h129, 100));
         items.add(new item(130, "Pila Chawal", "Yellow rice",R.drawable.h130, 100));
-        items.add(new item(131, "peele vastr", "Yellow clothes",R.drawable.h131, 100));
+        items.add(new item(131, "Peele Vastr", "Yellow clothes",R.drawable.h131, 100));
         items.add(new item(132, "Agarwood", "Agarwood",R.drawable.h132, 100));
         items.add(new item(133, "Laung", "Cloves",R.drawable.h133, 100));
 
