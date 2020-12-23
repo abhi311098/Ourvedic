@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 public class CartActivity extends AppCompatActivity {
 
@@ -31,7 +32,7 @@ public class CartActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("cart").child(user.getUid()).push();
     Button place_order_tv;
-    ArrayList<item> item_cart_copy;
+    LinkedHashSet<item> item_cart_copy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +41,13 @@ public class CartActivity extends AppCompatActivity {
 
         place_order_tv = findViewById(R.id.place_order_tv);
 
-        item_cart_copy = new ArrayList<>();
+        item_cart_copy = new LinkedHashSet<>();
         item_cart_copy.add(new item(101, "Agarbatti", "Incense stick", R.drawable.h101, 100));
         item_cart_copy.add(new item(102, "Ghee", "Ghee", R.drawable.h102, 100));
         item_cart_copy.add(new item(103, "Kumkuma", "Kumkuma", R.drawable.h103, 100));
         item_cart_copy.add(new item(104, "phool", "Flowers", R.drawable.h104, 100));
 
-        CartAdapter cartAdapter = new CartAdapter(CartActivity.this, item_cart_copy);
+        CartAdapter cartAdapter = new CartAdapter(CartActivity.this, new ArrayList(item_cart_copy));
         ListView cart_item = findViewById(R.id.cart_item);
         cart_item.setAdapter(cartAdapter);
 
