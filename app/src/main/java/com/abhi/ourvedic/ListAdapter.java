@@ -1,7 +1,11 @@
 package com.abhi.ourvedic;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +18,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.abhi.ourvedic.ui.home.HomeFragment;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
 
-    ArrayList item_cart = new ArrayList();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseUser user = mAuth.getCurrentUser();
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("cart").child(user.getUid());
+    ArrayList<item> item_cart = new ArrayList();
+    HashMap<Object, Object> hashMap = new HashMap<>();
     Vibrator Vibrator;
 
     public ListAdapter(Activity activity){
@@ -60,10 +77,42 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                item_cart.add(currentitem);
-                Toast.makeText(getContext(),"Item added!",Toast.LENGTH_SHORT).show();
-                Vibrator.vibrate(500);
-            }
+
+                    ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+                    if (networkInfo != null) {
+
+                        item_cart.add(currentitem);
+                        Iterator<item> iterator = item_cart.iterator();
+                        while (iterator.hasNext()) {
+                            final item itemdetails = iterator.next();
+                            hashMap.put("itemid",itemdetails.getItem_id());
+                            hashMap.put("localname",itemdetails.getItem_local_name());
+                            hashMap.put("itemname",itemdetails.getItem_name());
+                            hashMap.put("itemprice",itemdetails.getItem_Price());
+                            hashMap.put("image",itemdetails.getItem_image());
+                            Log.e("errorres", "onClick: "+hashMap );
+                            myRef.push().setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.e("errorres", "onSuccess: "+itemdetails.getItem_id());
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            });
+                        }
+                        item_cart.clear();
+                        Toast.makeText(getContext(),"Item added!",Toast.LENGTH_SHORT).show();
+                        Vibrator.vibrate(500);
+
+                    }
+                else {
+                        Toast.makeText(getContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+
+}
         });
 
         return listItemView;
