@@ -27,7 +27,7 @@
             android:textColorHint="#ffffff">
 
             <EditText
-                android:id="@+id/loginemailteacher"
+                android:id="@+id/admin_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -51,7 +51,7 @@
             android:textColor="#ffffff">
 
             <EditText
-                android:id="@+id/loginpasswordteacher"
+                android:id="@+id/admin_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp"
@@ -66,6 +66,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/login_as_admin_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
