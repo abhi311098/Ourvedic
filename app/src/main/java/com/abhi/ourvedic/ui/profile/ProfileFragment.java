@@ -109,7 +109,6 @@ public class ProfileFragment extends Fragment {
         if (ch==false) {
             Toast.makeText(getActivity(), ""+ch, Toast.LENGTH_LONG).show();
             for (int i = 0; i < profileModels.size(); i++) {
-                Toast.makeText(getActivity(), ""+profileModels.get(i).getId(), Toast.LENGTH_SHORT).show();
                 uname.setText(String.valueOf(profileModels.get(i).getName()));
                 uhousenumber.setText(String.valueOf(profileModels.get(i).getHouse()));
                 ustreetnumber.setText(String.valueOf(profileModels.get(i).getStreet()));

@@ -30,6 +30,7 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ConfirmOrder"></activity>
         <activity android:name=".Admin_Panel_Login">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

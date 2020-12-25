@@ -81,7 +81,6 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
                     ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo networkInfo = manager.getActiveNetworkInfo();
                     if (networkInfo != null) {
-
                         item_cart.add(currentitem);
                         Iterator<item> iterator = item_cart.iterator();
                         while (iterator.hasNext()) {

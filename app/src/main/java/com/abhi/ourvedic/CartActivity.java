@@ -3,7 +3,10 @@ package com.abhi.ourvedic;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -52,14 +55,17 @@ public class CartActivity extends AppCompatActivity {
                             Object itemname1 = map.get("itemname");
                             Object localname1 = map.get("localname");
                             Object itemid1 = map.get("itemid");
-                            Log.e(TAG, "onDataChange: "+itemid1 + "\n" +itemname1 + "\n" +localname1);
+                            Object itemprice1 = map.get("itemprice");
+                            Log.e(TAG, "onDataChange: " + itemid1 + "\n" + itemname1 + "\n"
+                                    + localname1 + "\n" +itemprice1);
                         }
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(CartActivity.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CartActivity.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -68,7 +74,6 @@ public class CartActivity extends AppCompatActivity {
 //        item_cart_copy.add(new item(102, "Ghee", "Ghee", R.drawable.h102, 100));
 //        item_cart_copy.add(new item(103, "Kumkuma", "Kumkuma", R.drawable.h103, 100));
 //        item_cart_copy.add(new item(104, "phool", "Flowers", R.drawable.h104, 100));
-//        item_cart_copy.add(new item());
 
         CartAdapter cartAdapter = new CartAdapter(CartActivity.this, new ArrayList(item_cart_copy));
         ListView cart_item = findViewById(R.id.cart_item);
@@ -77,7 +82,11 @@ public class CartActivity extends AppCompatActivity {
         place_order_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CartActivity.this,Billing_Details.class));
+                ConnectivityManager manager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+                if (networkInfo != null) {
+                    startActivity(new Intent(CartActivity.this, Billing_Details.class));
+                }
             }
         });
 
