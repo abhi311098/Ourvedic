@@ -28,7 +28,7 @@ import java.util.Map;
 public class CartActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private FirebaseUser user = mAuth.getCurrentUser();
+    FirebaseUser user = mAuth.getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("cart").child(user.getUid());
     Button place_order_tv;
@@ -77,10 +77,7 @@ public class CartActivity extends AppCompatActivity {
         place_order_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent i = new Intent(CartActivity.this, Billing_Details.class);
-                i.putExtra("cart_item", item_cart_copy);
-                startActivity(i);
+                startActivity(new Intent(CartActivity.this,Billing_Details.class));
             }
         });
 
