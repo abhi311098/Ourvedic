@@ -104,23 +104,23 @@ public class Billing_Details extends AppCompatActivity {
                             itemprice = map.get("itemprice");
                             Log.e(TAG, "onDataChange: " + itemid1 + "\n" + itemname1 + "\n"
                                     + localname1 + "\n" + itemprice);
-
-                            HashMap<Object, Object> hashMap = new HashMap<>();
-                            hashMap.put("itemid", itemid1);
-                            hashMap.put("itemname", itemname1);
-                            hashMap.put("localname", localname1);
-                            hashMap.put("itemprice", itemprice);
-                            myHistoryRef.push().setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.e(TAG, "onSuccess: Done");
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-
-                                }
-                            });
+//
+//                            HashMap<Object, Object> hashMap = new HashMap<>();
+//                            hashMap.put("itemid", itemid1);
+//                            hashMap.put("itemname", itemname1);
+//                            hashMap.put("localname", localname1);
+//                            hashMap.put("itemprice", itemprice);
+//                            myHistoryRef.push().setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    Log.e(TAG, "onSuccess: Done");
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//
+//                                }
+//                            });
                         }
                     }
                 }
