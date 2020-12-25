@@ -30,28 +30,28 @@ public class Billing_Details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_billing__details);
 
+        Log.e(TAG, "onCreate: "+myRef );
 
-        //Log.e(TAG, "onCreate: "+myRef );
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Map<Object, String> map = (Map) snapshot.getValue();
+                if (map != null) {
+                    house = map.get("house");
+                    street = map.get("street");
+                    house = map.get("house");
+                    land = map.get("land");
+                    pincode = map.get("pincode");
+                }
+                Log.e(TAG, "onDataChange: " +house+"\n"+street +"\n"+area +"\n"+land +"\n"+pincode );
+            }
 
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                Map<Object, String> map = (Map) snapshot.getValue();
-//                if (map != null) {
-//                     house = map.get("house");
-//                     street = map.get("street");
-//                     house = map.get("house");
-//                     land = map.get("land");
-//                     pincode = map.get("pincode");
-//                }
-//                Log.e(TAG, "onDataChange: " +house+"\n"+street +"\n"+area +"\n"+land +"\n"+pincode );
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
     }
 }
