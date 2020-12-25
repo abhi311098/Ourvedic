@@ -90,7 +90,6 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
                             hashMap.put("itemname",itemdetails.getItem_name());
                             hashMap.put("itemprice",itemdetails.getItem_Price());
                             hashMap.put("image",itemdetails.getItem_image());
-                            Log.e("errorres", "onClick: "+hashMap );
                             myRef.push().setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {

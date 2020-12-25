@@ -59,50 +59,11 @@ public class Billing_Details extends AppCompatActivity {
 
     private void confirmOrderDetails() {
 
-        HashMap<Object, Object> hashMap = new HashMap<>();
-        hashMap.put("itemid", itemid1);
-        hashMap.put("itemname", itemname1);
-        hashMap.put("localname", localname1);
-        hashMap.put("itemprice", itemprice);
-        myHistoryRef.push().setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.e(TAG, "onSuccess: Done");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
 
     }
 
     private void cartDetails() {
 
-        myCartRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                        Map<Object, Object> map = (Map) postSnapshot.getValue();
-                        if (map != null) {
-                            itemname1 = map.get("itemname");
-                            localname1 = map.get("localname");
-                            itemid1 = map.get("itemid");
-                            itemprice = map.get("itemprice");
-                            Log.e(TAG, "onDataChange: " + itemid1 + "\n" + itemname1 + "\n"
-                                    + localname1 + "\n" + itemprice);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Billing_Details.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void addressDetails() {
@@ -125,6 +86,52 @@ public class Billing_Details extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        myCartRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                        Map<Object, Object> map = (Map) postSnapshot.getValue();
+                        if (map != null) {
+                            itemname1 = map.get("itemname");
+                            localname1 = map.get("localname");
+                            itemid1 = map.get("itemid");
+                            itemprice = map.get("itemprice");
+                            Log.e(TAG, "onDataChange: " + itemid1 + "\n" + itemname1 + "\n"
+                                    + localname1 + "\n" + itemprice);
+
+                            HashMap<Object, Object> hashMap = new HashMap<>();
+                            hashMap.put("itemid", itemid1);
+                            hashMap.put("itemname", itemname1);
+                            hashMap.put("localname", localname1);
+                            hashMap.put("itemprice", itemprice);
+                            myHistoryRef.push().setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.e(TAG, "onSuccess: Done");
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(Billing_Details.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override

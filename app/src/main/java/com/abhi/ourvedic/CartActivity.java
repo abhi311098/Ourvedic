@@ -56,8 +56,6 @@ public class CartActivity extends AppCompatActivity {
                             Object localname1 = map.get("localname");
                             Object itemid1 = map.get("itemid");
                             Object itemprice1 = map.get("itemprice");
-                            Log.e(TAG, "onDataChange: " + itemid1 + "\n" + itemname1 + "\n"
-                                    + localname1 + "\n" +itemprice1);
                         }
                     }
                 }
