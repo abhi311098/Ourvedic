@@ -21,7 +21,7 @@
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center"
         android:columnCount="2">
         <androidx.cardview.widget.CardView
             android:id="@+id/current_orders"
@@ -36,8 +36,8 @@
                 android:padding="15dp"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:src="@drawable/ic_current_orders"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -60,8 +60,8 @@
                 android:padding="15dp"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:src="@drawable/ic_report"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -84,8 +84,8 @@
                 android:padding="15dp"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:src="@drawable/ic_stock"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -108,8 +108,8 @@
                 android:padding="15dp"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:src="@drawable/pins"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -132,8 +132,8 @@
                 android:padding="15dp"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:src="@drawable/ic_profits"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -156,8 +156,8 @@
                 android:padding="15dp"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:src="@drawable/ic_profile"/>
                 <TextView
                     android:layout_width="wrap_content"

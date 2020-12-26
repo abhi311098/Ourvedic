@@ -6,6 +6,10 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
+    <string name="facebook_app_id">217810733256076</string>
+    <string name="fb_login_protocol_scheme">fb217810733256076</string>
+
+
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Booking</string>
     <string name="menu_slideshow">Settings</string>

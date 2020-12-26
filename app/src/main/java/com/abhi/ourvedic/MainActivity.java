@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.abhi.ourvedic.roomdatabase.MyDatabase;
 import com.abhi.ourvedic.roomdatabase.RoomDB;
 import com.abhi.ourvedic.ui.profile.ProfileFragment;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
     GoogleSignInClient mGoogleSignInClient;
+    LoginButton loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void logout() {
+        loginButton = new LoginButton(MainActivity.this);
+        loginButton.performClick();
         mAuth.signOut();
         mGoogleSignInClient.signOut().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
