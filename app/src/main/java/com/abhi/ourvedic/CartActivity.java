@@ -15,6 +15,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.abhi.ourvedic.model.DataFModel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -33,8 +36,10 @@ public class CartActivity extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("cart").child(user.getUid());
+    DatabaseReference myCartRef = database.getReference("cart").child(user.getUid());
+    DatabaseReference myHistoryRef = database.getReference("History").child(user.getUid());
     Button place_order_tv;
+    Object itemname1, localname1, itemid1, itemprice;
     LinkedHashSet<item> item_cart_copy;
     private String TAG = "errorres";
 
@@ -44,28 +49,6 @@ public class CartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
 
         place_order_tv = findViewById(R.id.place_order_tv);
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                        Map<Object, Object> map = (Map) postSnapshot.getValue();
-                        if (map != null) {
-                            Object itemname1 = map.get("itemname");
-                            Object localname1 = map.get("localname");
-                            Object itemid1 = map.get("itemid");
-                            Object itemprice1 = map.get("itemprice");
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(CartActivity.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
         item_cart_copy = new LinkedHashSet<>();
 //        item_cart_copy.add(new item(101, "Agarbatti", "Incense stick", R.drawable.h101, 100));
@@ -83,11 +66,55 @@ public class CartActivity extends AppCompatActivity {
                 ConnectivityManager manager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = manager.getActiveNetworkInfo();
                 if (networkInfo != null) {
+                    startyourjalwa();
                     startActivity(new Intent(CartActivity.this, Billing_Details.class));
                 }
             }
         });
 
     }
+
+    private void startyourjalwa() {
+        myCartRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                        Map<Object, Object> map = (Map) postSnapshot.getValue();
+                        if (map != null) {
+                            itemname1 = map.get("itemname");
+                            localname1 = map.get("localname");
+                            itemid1 = map.get("itemid");
+                            itemprice = map.get("itemprice");
+                            HashMap<Object, Object> hashMap = new HashMap<>();
+                            hashMap.put("itemid", itemid1);
+                            hashMap.put("itemname", itemname1);
+                            hashMap.put("localname", localname1);
+                            hashMap.put("itemprice", itemprice);
+                            myHistoryRef.push().setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.e(TAG, "onSuccess: Done");
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(CartActivity.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+
 
 }

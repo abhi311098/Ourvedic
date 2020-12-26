@@ -31,6 +31,7 @@ import java.util.Iterator;
 
 public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
 
+    String TAG = "errorres";
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -93,11 +94,12 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
                             myRef.push().setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.e("errorres", "onSuccess: "+itemdetails.getItem_id());
+                                    Log.e(TAG, "onSuccess: done" );
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
+                                    Log.e(TAG, "onFailure: "+e.getMessage());
                                 }
                             });
                         }
