@@ -1,5 +1,6 @@
 package com.abhi.ourvedic.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +19,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import com.abhi.ourvedic.MainActivity;
 import com.abhi.ourvedic.R;
 import com.abhi.ourvedic.ListAdapter;
+import com.abhi.ourvedic.Splash_Screen2;
 import com.abhi.ourvedic.ViewPagerAdapter;
 import com.abhi.ourvedic.item;
 

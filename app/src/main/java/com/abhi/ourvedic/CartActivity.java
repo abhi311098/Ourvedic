@@ -42,7 +42,6 @@ public class CartActivity extends AppCompatActivity {
     String itemname1, localname1;
     long itemid1, itemprice;
     ArrayList<item> item_cart_copy;
-    ArrayList<item> itemArrayList;
     private String TAG = "errorres";
     int item_image;
 
@@ -57,7 +56,6 @@ public class CartActivity extends AppCompatActivity {
 
         place_order_tv = findViewById(R.id.place_order_tv);
 
-        itemArrayList = new ArrayList<>();
 
         item_cart_copy = new ArrayList<>();
 //        item_cart_copy.add(new item(101, "Agarbatti", "Incense stick", R.drawable.h101, 100));
@@ -101,7 +99,7 @@ public class CartActivity extends AppCompatActivity {
                             hashMap.put("itemname", itemname1);
                             hashMap.put("localname", localname1);
                             hashMap.put("itemprice", itemprice);*/
-                            myHistoryRef.push().setValue(item_cart_copy).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            myHistoryRef.push().setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.e(TAG, "onSuccess: Done");

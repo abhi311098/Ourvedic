@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.abhi.ourvedic">
+    package="com.abhi.ourvedic" >
 
     <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
 
@@ -29,18 +29,20 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
+        <activity android:name=".Splash_Screen2" >
+        </activity>
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
-
-        <activity android:name=".ConfirmOrder"></activity>
-        <activity android:name=".Admin_Panel_Login">
+        <activity android:name=".ConfirmOrder" />
+        <activity android:name=".Admin_Panel_Login" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginPage" />
@@ -48,10 +50,11 @@
         <activity android:name=".Current_Ordre_Ap" />
         <activity android:name=".Admin_Panel" />
         <activity android:name=".Billing_Details" >
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CartActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CartActivity" />
         </activity>
-        <activity android:name=".CartActivity">
+        <activity android:name=".CartActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
@@ -60,13 +63,13 @@
         <!-- android:enabled="true" -->
         <!-- android:exported="true" /> -->
         <activity android:name=".ResetPassword" />
-        <activity android:name=".ForgetPassword">
+        <activity android:name=".ForgetPassword" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginPage" />
         </activity>
         <activity android:name=".LoginPage" />
-        <activity android:name=".RegistrationPage">
+        <activity android:name=".RegistrationPage" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginPage" />
@@ -75,7 +78,7 @@
         <activity
             android:name=".Splash_Screen1"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -33,6 +35,15 @@ public class Splash_Screen1 extends AppCompatActivity {
             @Override
             public void run() {
 
+                AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+                if (isLoggedIn){
+                    Intent i = new Intent(Splash_Screen1.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+
                 if (user!=null) {
                     startActivity(new Intent(Splash_Screen1.this,MainActivity.class));
                 } else {
@@ -51,7 +62,6 @@ public class Splash_Screen1 extends AppCompatActivity {
                             editor = sharedPreferences.edit();
                             editor.clear();
                             editor.commit();
-                            Toast.makeText(Splash_Screen1.this, "done", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(Splash_Screen1.this, LoginPage.class);
                             startActivity(i);
                             finish();

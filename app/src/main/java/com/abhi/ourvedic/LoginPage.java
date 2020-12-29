@@ -237,17 +237,7 @@ public class LoginPage extends AppCompatActivity {
 
     }
 
-    AccessTokenTracker tokenTracker = new AccessTokenTracker() {
-        @Override
-        protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-            if (currentAccessToken != null) {
-                Intent i2 = new Intent(LoginPage.this, MainActivity.class);
-                startActivity(i2);
-            } else {
-                loadUserProfile(currentAccessToken);
-            }
-        }
-    };
+
 
     public void loadUserProfile(AccessToken newAccessToken) {
         GraphRequest request = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {

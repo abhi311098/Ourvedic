@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
     GoogleSignInClient mGoogleSignInClient;
-    LoginButton loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
