@@ -78,7 +78,6 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                     ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo networkInfo = manager.getActiveNetworkInfo();
                     if (networkInfo != null) {
@@ -86,11 +85,17 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
                         Iterator<item> iterator = item_cart.iterator();
                         while (iterator.hasNext()) {
                             final item itemdetails = iterator.next();
-                            hashMap.put("itemid",itemdetails.getItem_id());
+                            /*hashMap.put("itemid",itemdetails.getItem_id());
                             hashMap.put("localname",itemdetails.getItem_local_name());
                             hashMap.put("itemname",itemdetails.getItem_name());
                             hashMap.put("itemprice",itemdetails.getItem_Price());
-                            hashMap.put("image",itemdetails.getItem_image());
+                            hashMap.put("image",itemdetails.getItem_image());*/
+                            if(!hashMap.containsKey(itemdetails.getItem_id())){
+                                hashMap.put(String.valueOf(itemdetails.getItem_id()), new item(itemdetails.getItem_id(),itemdetails.getItem_local_name(),itemdetails.getItem_name(),itemdetails.getItem_Price()));
+                            }
+                            else {
+                                Toast.makeText(getContext(), "Item already added", Toast.LENGTH_SHORT).show();
+                            }
                             myRef.push().setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -111,7 +116,6 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
                 else {
                         Toast.makeText(getContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
                 }
-
 }
         });
 

@@ -1,0 +1,28 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.abhi.ourvedic\">\r\n\r\n    <uses-permission-sdk-23 android:name=\"android.permission.INTERNET\" />\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n\r\n    <uses-permission-sdk-23 android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />\r\n\r\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />\r\n\r\n    <uses-permission-sdk-23 android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n\r\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n\r\n    <uses-permission-sdk-23 android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n\r\n    <uses-permission-sdk-23 android:name=\"android.permission.ACCESS_WIFI_STATE\" />\r\n\r\n    <uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />\r\n    <uses-permission android:name=\"android.permission.VIBRATE\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@drawable/logo\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@drawable/logo\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/AppTheme\">\r\n        <activity android:name=\".Admin_Panel_Login\">\r\n            <meta-data\r\n                android:name=\"android.support.PARENT_ACTIVITY\"\r\n                android:value=\".LoginPage\" />\r\n        </activity>\r\n        <activity android:name=\".Current_Ordre_Ap\" />\r\n        <activity android:name=\".Admin_Panel\" />\r\n        <activity android:name=\".Billing_Details\" />\r\n        <activity android:name=\".CartActivity\">\r\n            <meta-data\r\n                android:name=\"android.support.PARENT_ACTIVITY\"\r\n                android:value=\".MainActivity\" />\r\n        </activity> <!-- <service -->\r\n        <!-- android:name=\".service.ServiceDataWifi\" -->\r\n        <!-- android:enabled=\"true\" -->\r\n        <!-- android:exported=\"true\" /> -->\r\n        <activity android:name=\".ResetPassword\" />\r\n        <activity android:name=\".ForgetPassword\">\r\n            <meta-data\r\n                android:name=\"android.support.PARENT_ACTIVITY\"\r\n                android:value=\".LoginPage\" />\r\n        </activity>\r\n        <activity android:name=\".LoginPage\" />\r\n        <activity android:name=\".RegistrationPage\">\r\n            <meta-data\r\n                android:name=\"android.support.PARENT_ACTIVITY\"\r\n                android:value=\".LoginPage\" />\r\n        </activity>\r\n        <activity android:name=\".MainActivity\" />\r\n        <activity\r\n            android:name=\".Splash_Screen1\"\r\n            android:label=\"@string/app_name\"\r\n            android:theme=\"@style/AppTheme.NoActionBar\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 503a2052e82292a8df2ffa16132d74f859408342)
++++ app/src/main/AndroidManifest.xml	(date 1608882071295)
+@@ -30,6 +30,17 @@
+         android:roundIcon="@drawable/logo"
+         android:supportsRtl="true"
+         android:theme="@style/AppTheme">
++
++
++        <meta-data android:name="com.facebook.sdk.ApplicationId"
++            android:value="@string/facebook_app_id"/>
++
++        <activity android:name="com.facebook.FacebookActivity"
++            android:configChanges=
++                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
++            android:label="@string/app_name" />
++
++
+         <activity android:name=".Admin_Panel_Login">
+             <meta-data
+                 android:name="android.support.PARENT_ACTIVITY"
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_22_12_2020_3_26_PM__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_22_12_2020_3_26_PM__Default_Changelist_.xml

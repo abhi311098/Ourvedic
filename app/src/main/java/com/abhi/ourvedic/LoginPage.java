@@ -254,8 +254,6 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
 
-                Toast.makeText(LoginPage.this, "Two",Toast.LENGTH_SHORT).show();
-
                 //for abhishek
                     /*
                 try {

@@ -125,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void logout() {
-        loginButton = new LoginButton(MainActivity.this);
-        loginButton.performClick();
         mAuth.signOut();
         mGoogleSignInClient.signOut().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

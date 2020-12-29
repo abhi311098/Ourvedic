@@ -6,6 +6,13 @@ public class item {
     private String item_name;
     int item_image;
     private int price;
+
+    public item(int item_id, String item_local_name, String item_name, int price ){
+        this.item_id = item_id;
+        this.item_local_name = item_local_name;
+        this.item_name = item_name;
+        this.price = price;
+    }
     public item(int item_id, String item_local_name, String item_name, int item_image, int price){
         this.item_id = item_id;
         this.item_local_name = item_local_name;
