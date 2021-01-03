@@ -147,36 +147,6 @@
                 android:src="@drawable/g_plus_icon"
                 android:translationX="10dp" />
         </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_login_page_button2"
-            android:layout_marginTop="20dp">
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/login_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-            <TextView
-                android:id="@+id/facebook_sign_in_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:padding="15dp"
-                android:text="Sign In"
-                android:textColor="#000000"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:translationX="10dp" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@id/facebook_sign_in_button"
-                android:src="@drawable/facebook_icon"
-                android:translationX="10dp" />
-        </RelativeLayout>
     </LinearLayout>
 
 </ScrollView>

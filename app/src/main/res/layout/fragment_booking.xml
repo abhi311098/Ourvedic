@@ -19,7 +19,9 @@
             app:cardElevation="8dp">
 
             <RelativeLayout
+                android:id="@+id/dharamashala_rl"
                 android:layout_width="match_parent"
+                android:background="@color/colorPrimary"
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/Dharamshala_img"
@@ -32,36 +34,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/Dharamshala_img"
-                    android:text="Dharamshala"
-                    android:gravity="center_vertical"
-                    android:textColor="@android:color/black"
-                    android:textSize="16dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="15dp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Price : X000rs"
-                    android:textColor="@android:color/black"
-                    android:layout_below="@id/tv_Dharamshala"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginStart="15dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="    Add    "
-                    android:textColor="@android:color/white"
-                    android:layout_below="@id/Dharamshala_img"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:text="Open Dharamshala Booking"
+                    android:layout_marginBottom="15dp"
+                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:background="@color/colorPrimary"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp"
-                    android:padding="10dp"/>
+                    android:layout_marginTop="15dp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
@@ -107,7 +87,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_centerVertical="true"
-                    android:background="@color/colorPrimary"
+                    android:background="@drawable/background_rounded"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="15dp"
                     android:layout_marginTop="6dp"
@@ -160,7 +140,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_centerVertical="true"
-                    android:background="@color/colorPrimary"
+                    android:background="@drawable/background_rounded"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="15dp"
                     android:layout_marginTop="6dp"
@@ -212,7 +192,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_centerVertical="true"
-                    android:background="@color/colorPrimary"
+                    android:background="@drawable/background_rounded"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="15dp"
                     android:layout_marginTop="6dp"
