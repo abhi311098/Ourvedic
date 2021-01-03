@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment {
 
     LinearLayout SliderDots;
     private int dotscount;
-    private ImageView dots[];
+    private ImageView[] dots;
     ViewPager viewPager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,

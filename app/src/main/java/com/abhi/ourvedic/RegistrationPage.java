@@ -18,8 +18,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrationPage extends AppCompatActivity {
+
+    private DatabaseReference mDatabase;
 
     private ProgressDialog progressDialog;
     private EditText remail, rpassword, rcpassword;
@@ -28,10 +33,15 @@ public class RegistrationPage extends AppCompatActivity {
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private String TAG = "registration";
 
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference users = database.getReference("Users");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_page);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
 
         init();
         reg.setOnClickListener(new View.OnClickListener() {
@@ -44,7 +54,7 @@ public class RegistrationPage extends AppCompatActivity {
                 mAuth = FirebaseAuth.getInstance();
 
                 final String email = remail.getText().toString().trim();
-                String password = rpassword.getText().toString();
+                final String password = rpassword.getText().toString();
                 String cpassword = rcpassword.getText().toString();
 
                 if (email.isEmpty()) {
@@ -66,6 +76,9 @@ public class RegistrationPage extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
+
+                                        writeNewUser(email, password);
+
                                         SharedPreferences sh = getSharedPreferences("email", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor edit = sh.edit();
                                         edit.putString("email",email);
@@ -97,5 +110,10 @@ public class RegistrationPage extends AppCompatActivity {
         rcpassword = findViewById(R.id.registrationpconfirmassword);
         reg = findViewById(R.id.registrationbutton2);
 
+    }
+
+    private void writeNewUser(String email, String password) {
+        user_details user_details = new user_details(email, password);
+        mDatabase.child("users").setValue(user_details);
     }
 }

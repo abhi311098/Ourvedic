@@ -53,5 +53,4 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     annotationProcessor 'androidx.room:room-compiler:2.2.6'
     implementation 'com.facebook.android:facebook-login:5.0.0'
-
 }

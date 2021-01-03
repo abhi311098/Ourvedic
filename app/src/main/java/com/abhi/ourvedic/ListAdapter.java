@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
 
@@ -37,7 +38,8 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("cart").child(user.getUid());
     ArrayList<item> item_cart = new ArrayList();
-    HashMap<Object, Object> hashMap = new HashMap<>();
+    //HashMap<Object, Object> hashMap = new HashMap<>();
+    List<Object> objectList = new ArrayList<>();
     Vibrator Vibrator;
 
     public ListAdapter(Activity activity){
@@ -47,9 +49,6 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
     public ListAdapter(Activity context, ArrayList<com.abhi.ourvedic.item> al) {
         super(context, 0, al);
         Vibrator = (Vibrator)getContext().getSystemService(MainActivity.VIBRATOR_SERVICE);
-    }
-    public ArrayList get_item_cart(){
-        return item_cart;
     }
 
     @NonNull
@@ -78,45 +77,46 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                    NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-                    if (networkInfo != null) {
-                        item_cart.add(currentitem);
-                        Iterator<item> iterator = item_cart.iterator();
-                        while (iterator.hasNext()) {
-                            final item itemdetails = iterator.next();
-                            /*hashMap.put("itemid",itemdetails.getItem_id());
-                            hashMap.put("localname",itemdetails.getItem_local_name());
-                            hashMap.put("itemname",itemdetails.getItem_name());
-                            hashMap.put("itemprice",itemdetails.getItem_Price());
-                            hashMap.put("image",itemdetails.getItem_image());*/
-                            if(!hashMap.containsKey(itemdetails.getItem_id())){
-                                hashMap.put(String.valueOf(itemdetails.getItem_id()), new item(itemdetails.getItem_id(),itemdetails.getItem_local_name(),itemdetails.getItem_name(),itemdetails.getItem_Price()));
-                            }
-                            else {
-                                Toast.makeText(getContext(), "Item already added", Toast.LENGTH_SHORT).show();
-                            }
-                            myRef.push().setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.e(TAG, "onSuccess: done" );
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.e(TAG, "onFailure: "+e.getMessage());
-                                }
-                            });
-                        }
-                        item_cart.clear();
-                        Toast.makeText(getContext(),"Item added!",Toast.LENGTH_SHORT).show();
-                        Vibrator.vibrate(500);
 
-                    }
-                else {
-                        Toast.makeText(getContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+                ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+                if (networkInfo != null) {
+                    item_cart.add(currentitem);
+
+                    Object o = new item(currentitem.getItem_id(),currentitem.getItem_local_name(),currentitem.getItem_name(),currentitem.getItem_Price());
+
+                    objectList.add(o);
+
+                    /*Iterator<item> iterator = item_cart.iterator();
+                    while (iterator.hasNext()) {
+                        final item itemdetails = iterator.next();
+                        hashMap.put("itemid",itemdetails.getItem_id());
+                        hashMap.put("localname",itemdetails.getItem_local_name());
+                        hashMap.put("itemname",itemdetails.getItem_name());
+                        hashMap.put("itemprice",itemdetails.getItem_Price());
+                        hashMap.put("image",itemdetails.getItem_image());*/
+                        myRef.push().setValue(objectList).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.e(TAG, "onSuccess: done" );
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e(TAG, "onFailure: "+e.getMessage());
+                            }
+                        });
+                    //}
+                    item_cart.clear();
+                    Toast.makeText(getContext(),"Item added!",Toast.LENGTH_SHORT).show();
+                    Vibrator.vibrate(500);
+
                 }
-}
+                else {
+                    Toast.makeText(getContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+
+            }
         });
 
         return listItemView;

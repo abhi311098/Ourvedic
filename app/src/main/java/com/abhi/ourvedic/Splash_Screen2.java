@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class Splash_Screen2 extends AppCompatActivity {
 
@@ -24,6 +25,8 @@ public class Splash_Screen2 extends AppCompatActivity {
         setContentView(R.layout.activity_splash__screen2);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         int SPLASH_DISPLAY_LENGTH = 1000;
+
+        Toast.makeText(Splash_Screen2.this, "Order Successfully Placed", Toast.LENGTH_SHORT).show();
 
         ImageView done = (ImageView)findViewById(R.id.done);
 

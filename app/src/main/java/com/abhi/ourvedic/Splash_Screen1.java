@@ -35,17 +35,10 @@ public class Splash_Screen1 extends AppCompatActivity {
             @Override
             public void run() {
 
-                AccessToken accessToken = AccessToken.getCurrentAccessToken();
-                boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-
-                if (isLoggedIn){
-                    Intent i = new Intent(Splash_Screen1.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
-                }
 
                 if (user!=null) {
                     startActivity(new Intent(Splash_Screen1.this,MainActivity.class));
+                    finish();
                 } else {
                     GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                             .requestIdToken(getString(R.string.default_web_client_id))
