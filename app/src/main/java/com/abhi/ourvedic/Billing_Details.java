@@ -27,10 +27,6 @@ import java.util.Map;
 
 public class Billing_Details extends AppCompatActivity {
 
-    FirebaseAuth auth = FirebaseAuth.getInstance();
-    FirebaseUser user = auth.getCurrentUser();
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myCartRef = database.getReference("cart").child(user.getUid());
     private String TAG = "errorres";
     Button confirmorder;
 
@@ -38,20 +34,6 @@ public class Billing_Details extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_billing__details);
-
-        myCartRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot appleSnapshot : snapshot.getChildren()) {
-                    appleSnapshot.getRef().removeValue();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         confirmorder = findViewById(R.id.confirmqqorder);
 
