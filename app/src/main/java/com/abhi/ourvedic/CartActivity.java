@@ -36,8 +36,8 @@ public class CartActivity extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myCartRef = database.getReference("cart").child(user.getUid());
-    DatabaseReference myHistoryRef = database.getReference("History").child(user.getUid());
+    DatabaseReference myCartRef = database.getReference("users").child(user.getUid()).child("cart");
+
     Button place_order_tv;
     String itemname1, localname1;
     long itemid1, itemprice;
@@ -45,7 +45,7 @@ public class CartActivity extends AppCompatActivity {
     private String TAG = "errorres";
     int item_image;
 
-    Map<Object, Object> map;
+    ArrayList<item> map;
     //HashMap<Object, Object> hashMap;
 
     @Override
@@ -65,6 +65,7 @@ public class CartActivity extends AppCompatActivity {
 
         startyourjalwa();
 
+        Log.v("al is ", String.valueOf(item_cart_copy.isEmpty()));
         CartAdapter cartAdapter = new CartAdapter(CartActivity.this, item_cart_copy);
         ListView cart_item = findViewById(R.id.cart_item);
         cart_item.setAdapter(cartAdapter);
@@ -81,36 +82,27 @@ public class CartActivity extends AppCompatActivity {
         });
     }
 
+
     private void startyourjalwa() {
         myCartRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                        map = (Map<Object, Object>) postSnapshot.getValue();
+                        map = (ArrayList<item>) postSnapshot.getValue();
                         if (map != null) {
-                            itemname1 = (String) map.get("itemname");
+                            item_cart_copy.addAll(map);
+
+                            /*itemname1 = (String) map.get("itemname");
                             localname1 = (String) map.get("localname");
                             itemid1 = (long) map.get("itemid");
                             itemprice = (long) map.get("itemprice");
-                            item_cart_copy.add(new item ((int) itemid1, localname1, itemname1, R.drawable.h133, (int) itemprice));
+                            item_cart_copy.add(new item ((int) itemid1, localname1, itemname1, R.drawable.h133, (int) itemprice));*/
                             /*hashMap = new HashMap<>();
                             hashMap.put("itemid", itemid1);
                             hashMap.put("itemname", itemname1);
                             hashMap.put("localname", localname1);
                             hashMap.put("itemprice", itemprice);*/
-                            myHistoryRef.push().setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.e(TAG, "onSuccess: Done");
-                                    Log.v("items", String.valueOf(item_cart_copy.get(item_cart_copy.size()-1).getItem_local_name()));
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-
-                                }
-                            });
                         }
                     }
                 }

@@ -30,6 +30,11 @@ public class Billing_Details extends AppCompatActivity {
     private String TAG = "errorres";
     Button confirmorder;
 
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = mAuth.getCurrentUser();
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myHistoryRef = database.getReference("users").child(user.getUid()).child("user_orderHistory");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,5 +50,19 @@ public class Billing_Details extends AppCompatActivity {
             }
         });
     }
+
+    /*void makeOrderHistory(){
+        myHistoryRef.push().setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.e(TAG, "onSuccess: Done");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e(TAG, "onFailure : failed");
+            }
+        });
+    }*/
 
 }

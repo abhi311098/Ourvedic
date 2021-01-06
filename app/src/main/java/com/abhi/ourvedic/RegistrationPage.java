@@ -29,6 +29,7 @@ public class RegistrationPage extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private EditText remail, rpassword, rcpassword;
     private Button reg;
+    FirebaseUser user;
     FirebaseAuth mAuth;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private String TAG = "registration";
@@ -76,6 +77,8 @@ public class RegistrationPage extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
+                                        user = mAuth.getCurrentUser();
+                                        DatabaseReference myCartRef = database.getReference("users").child(user.getUid());
 
                                         writeNewUser(email, password);
 
@@ -114,6 +117,6 @@ public class RegistrationPage extends AppCompatActivity {
 
     private void writeNewUser(String email, String password) {
         user_details user_details = new user_details(email, password);
-        mDatabase.child("users").setValue(user_details);
+        database.getReference("users").child(user.getUid()).child("user_details").setValue(user_details);
     }
 }

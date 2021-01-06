@@ -24,6 +24,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
     GoogleSignInClient mGoogleSignInClient;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    Task<Void> databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,9 +119,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
+                            databaseReference = database.getReference("users").child(user.getUid()).removeValue();
                             Intent intent = new Intent(MainActivity.this, LoginPage.class);
                             startActivity(intent);
                             finish();
+
                         }
                     }
                 });

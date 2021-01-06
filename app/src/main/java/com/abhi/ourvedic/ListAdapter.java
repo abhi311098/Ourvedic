@@ -36,7 +36,7 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("cart").child(user.getUid());
+    DatabaseReference myRef = database.getReference("users").child(user.getUid()).child("user_cart");
     ArrayList<item> item_cart = new ArrayList();
     //HashMap<Object, Object> hashMap = new HashMap<>();
     List<Object> objectList = new ArrayList<>();
@@ -83,7 +83,7 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
                 if (networkInfo != null) {
                     item_cart.add(currentitem);
 
-                    Object o = new item(currentitem.getItem_id(),currentitem.getItem_local_name(),currentitem.getItem_name(),currentitem.getItem_Price());
+                    item o = new item(currentitem.getItem_id(),currentitem.getItem_local_name(),currentitem.getItem_name(),currentitem.getItem_Price());
 
                     objectList.add(o);
 
@@ -95,7 +95,7 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
                         hashMap.put("itemname",itemdetails.getItem_name());
                         hashMap.put("itemprice",itemdetails.getItem_Price());
                         hashMap.put("image",itemdetails.getItem_image());*/
-                        myRef.push().setValue(objectList).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        myRef.setValue(objectList).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Log.e(TAG, "onSuccess: done" );
