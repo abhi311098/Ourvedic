@@ -1,19 +1,15 @@
 package com.abhi.ourvedic;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.ListView;
+import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,8 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class Billing_Details extends AppCompatActivity {
 
@@ -33,6 +28,14 @@ public class Billing_Details extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    ArrayList<item> item_cart_copy2;
+    int total = 0;
+    TextView billing_price;
+    TextView billing_delivery_charges;
+    TextView billing_amount_final;
+
+
+    DatabaseReference myCartRef = database.getReference("users").child(user.getUid()).child("user_cart");
     DatabaseReference myHistoryRef = database.getReference("users").child(user.getUid()).child("user_orderHistory");
 
     @Override
@@ -41,11 +44,65 @@ public class Billing_Details extends AppCompatActivity {
         setContentView(R.layout.activity_billing__details);
 
         confirmorder = findViewById(R.id.confirmqqorder);
+        billing_price = findViewById(R.id.billing_price);
+        billing_delivery_charges = findViewById(R.id.billing_delivery_charges);
+        billing_amount_final = findViewById(R.id.billing_amount_final);
+        item_cart_copy2 = new ArrayList<>();
+
+        myCartRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    for(DataSnapshot dss : snapshot.getChildren()){
+                        item i = dss.getValue(item.class);
+                        item_cart_copy2.add(i);
+                        total += i.getItem_Price();
+                        billing_price.setText("₹" + String.valueOf(total));
+                        billing_amount_final.setText("₹" + String.valueOf(total));
+                        BillingAdapter billingAdapter = new BillingAdapter(Billing_Details.this, item_cart_copy2);
+                        ListView billing_lv = findViewById(R.id.billing_lv);
+                        billing_lv.setAdapter(billingAdapter);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         confirmorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Billing_Details.this,MainActivity.class));
+                /*ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+                if (networkInfo != null) {
+
+                    item o = new item(currentitem.getItem_id(),currentitem.getItem_local_name(),currentitem.getItem_name(), currentitem.getItem_image(), currentitem.getItem_Price());
+
+                    objectList.add(o);
+
+                    myHistoryRef.setValue(objectList).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.e(TAG, "onSuccess: done" );
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e(TAG, "onFailure: "+e.getMessage());
+                        }
+                    });
+                    Toast.makeText(getContext(),"Item added!",Toast.LENGTH_SHORT).show();
+                    Vibrator.vibrate(500);
+                }
+                else {
+                    Toast.makeText(getContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+                }*/
+
+                //Task<Void> myHistoryRef = database.getReference("users").child(user.getUid()).child("user_cart").removeValue();
+                startActivity(new Intent(Billing_Details.this,Splash_Screen2.class));
                 finish();
             }
         });

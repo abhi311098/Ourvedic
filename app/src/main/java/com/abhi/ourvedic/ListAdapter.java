@@ -37,8 +37,6 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
     private FirebaseUser user = mAuth.getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("users").child(user.getUid()).child("user_cart");
-    ArrayList<item> item_cart = new ArrayList();
-    //HashMap<Object, Object> hashMap = new HashMap<>();
     List<Object> objectList = new ArrayList<>();
     Vibrator Vibrator;
 
@@ -78,44 +76,31 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
             @Override
             public void onClick(View view) {
 
-                ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-                if (networkInfo != null) {
-                    item_cart.add(currentitem);
+            ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+            if (networkInfo != null) {
 
-                    item o = new item(currentitem.getItem_id(),currentitem.getItem_local_name(),currentitem.getItem_name(),currentitem.getItem_Price());
+                item o = new item(currentitem.getItem_id(),currentitem.getItem_local_name(),currentitem.getItem_name(), currentitem.getItem_image(), currentitem.getItem_Price());
 
-                    objectList.add(o);
+                objectList.add(o);
 
-                    /*Iterator<item> iterator = item_cart.iterator();
-                    while (iterator.hasNext()) {
-                        final item itemdetails = iterator.next();
-                        hashMap.put("itemid",itemdetails.getItem_id());
-                        hashMap.put("localname",itemdetails.getItem_local_name());
-                        hashMap.put("itemname",itemdetails.getItem_name());
-                        hashMap.put("itemprice",itemdetails.getItem_Price());
-                        hashMap.put("image",itemdetails.getItem_image());*/
-                        myRef.setValue(objectList).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.e(TAG, "onSuccess: done" );
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.e(TAG, "onFailure: "+e.getMessage());
-                            }
-                        });
-                    //}
-                    item_cart.clear();
-                    Toast.makeText(getContext(),"Item added!",Toast.LENGTH_SHORT).show();
-                    Vibrator.vibrate(500);
-
-                }
-                else {
-                    Toast.makeText(getContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
-                }
-
+                myRef.setValue(objectList).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.e(TAG, "onSuccess: done" );
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "onFailure: "+e.getMessage());
+                    }
+                });
+                Toast.makeText(getContext(),"Item added!",Toast.LENGTH_SHORT).show();
+                Vibrator.vibrate(500);
+            }
+            else {
+                Toast.makeText(getContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+            }
             }
         });
 

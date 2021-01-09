@@ -1,139 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="false"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <RelativeLayout
+    android:layout_height="wrap_content"
+    android:elevation="5dp">
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:paddingStart="20dp"
-        android:id="@+id/txtcontainer">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/local_name_item__textView"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            android:textColor="#000000"
-            tools:text="Agarbatti"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/default_textView"
-            android:layout_marginTop="5dp"
-            android:layout_below="@id/local_name_item__textView"
-            android:textAppearance="?android:textAppearanceSmall"
-            tools:text="Incense stick"/>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="10dp"
-            app:cardCornerRadius="20dp"
-            android:layout_marginEnd="20dp">
-            <ImageView
-                android:id="@+id/image_view"
-                android:scaleType="centerCrop"
-                android:layout_width="85dp"
-                android:layout_height="85dp"/>
-        </androidx.cardview.widget.CardView>
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        xmlns:tools="http://schemas.android.com/tools">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:translationY="-15dp"
-            android:background="@drawable/bg_spinner"
-            android:padding="2dp"
-            android:layout_toStartOf="@id/image"
-            android:layout_below="@id/item_price">
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:paddingStart="20dp"
+            android:id="@+id/txtcontainer">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Qty"
+                android:id="@+id/local_name_item__textView"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
                 android:textColor="#000000"
-                android:layout_toEndOf="@id/spinner"
-                android:textSize="18sp"/>
-            <Spinner
-                android:id="@+id/spinner"
-
+                tools:text="Agarbatti"/>
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="27dp" />
+                android:layout_height="wrap_content"
+                android:id="@+id/default_textView"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/local_name_item__textView"
+                android:textAppearance="?android:textAppearanceSmall"
+                tools:text="Incense stick"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="20dp"
+                android:layout_marginEnd="20dp">
+                <ImageView
+                    android:id="@+id/image_view"
+                    android:scaleType="centerCrop"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"/>
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:translationY="-15dp"
+                android:background="@drawable/bg_spinner"
+                android:padding="2dp"
+                android:layout_toStartOf="@id/image"
+                android:layout_below="@id/item_price">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Qty"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="#000000"
+                    android:layout_toEndOf="@id/spinner"
+                    android:textSize="18sp"/>
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="deliver in 5 days"
+                android:textColor="#000000"
+                android:layout_below="@id/default_textView"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/item_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@id/image"
+                android:layout_centerVertical="true"
+                android:text="₹100"
+                android:layout_marginEnd="10dp"
+                android:textColor="#000000"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:translationY="-20dp" />
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="deliver in 5 days"
-            android:textColor="#000000"
-            android:layout_below="@id/default_textView"
-            android:layout_marginTop="10dp"/>
 
-        <TextView
-            android:id="@+id/item_price"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/image"
-            android:layout_centerVertical="true"
-            android:text="₹100"
-            android:layout_marginEnd="10dp"
-            android:textColor="#000000"
-            android:textSize="21sp"
-            android:translationY="-20dp" />
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/Move_to_WishList"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Move to WishList"
-            android:paddingBottom="12dp"
-            android:paddingTop="12dp"
-            android:layout_marginStart="10dp"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:gravity="center"
-            android:textColor="#000000"/>
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="?android:attr/listDivider" />
-        <TextView
-            android:id="@+id/Remove"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingBottom="12dp"
-            android:paddingTop="12dp"
-            android:text="Remove"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="#000000"
-            android:gravity="center"/>
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/bg_strokes">
+            <TextView
+                android:id="@+id/Move_to_WishList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Move to WishList"
+                android:textStyle="bold"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
+                android:layout_marginStart="10dp"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"/>
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="?android:attr/listDivider" />
+            <TextView
+                android:id="@+id/Remove"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="12dp"
+                android:textStyle="bold"
+                android:paddingTop="12dp"
+                android:text="Remove Item"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/colorPrimary"
+                android:gravity="center"/>
+        </LinearLayout>
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/divider3"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="?android:attr/listDivider" />
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

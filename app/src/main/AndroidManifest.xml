@@ -33,6 +33,7 @@
 
 
         <activity android:name=".ConfirmOrder"></activity>
+        <activity android:name=".Splash_Screen2"></activity>
         <activity android:name=".Admin_Panel_Login">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
