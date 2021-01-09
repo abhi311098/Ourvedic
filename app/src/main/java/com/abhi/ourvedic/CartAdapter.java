@@ -9,22 +9,40 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnItemSelectedListener {
 
+    ArrayList<item> map;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = mAuth.getCurrentUser();
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+    CardView cardView;
+
     String[] quantity = { "1", "2", "3", "4", "5", "6" };
     int quant;
     String amount;
     TextView price;
-
+    TextView removeItem;
+    TextView Move_to_WishList;
 
     public CartAdapter(Activity context, ArrayList<item> cal) {
         super(context, 0, cal);
@@ -51,10 +69,13 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
 
         price = listItemView.findViewById(R.id.item_price);
 
-        TextView remove = listItemView.findViewById(R.id.Remove);                                    //for abhishek
+        removeItem = listItemView.findViewById(R.id.Remove);
 
-        TextView Move_to_WishList = listItemView.findViewById(R.id.Move_to_WishList);                //for abhishek
+        cardView = listItemView.findViewById(R.id.cardview);
 
+        Move_to_WishList = listItemView.findViewById(R.id.Move_to_WishList);                //for abhishek
+
+        abhishek(currentitem.getItem_id());
 
         Spinner spino = listItemView.findViewById(R.id.spinner);
 
@@ -78,6 +99,33 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
         });
 
         return listItemView;
+    }
+
+    private void abhishek(int item_id) {
+        final int id = item_id;
+        removeItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference myCartRef = (DatabaseReference) database.getReference("users").child(user.getUid()).child("cart").orderByChild("item_id").equalTo(id);
+                myCartRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                            map = (ArrayList<item>) dataSnapshot.getValue();
+                            if (map != null) {
+                                dataSnapshot.getRef().removeValue();
+                            }
+                        }
+                        cardView.removeAllViews();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getContext(), ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     @Override

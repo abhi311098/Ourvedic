@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,10 +34,14 @@ public class Billing_Details extends AppCompatActivity {
     TextView billing_price;
     TextView billing_delivery_charges;
     TextView billing_amount_final;
+    TextView billing_address;
 
+    String h_no,area,pincode,street,land;
 
     DatabaseReference myCartRef = database.getReference("users").child(user.getUid()).child("user_cart");
+    DatabaseReference myProfileRef = database.getReference("Profile").child(user.getUid());
     DatabaseReference myHistoryRef = database.getReference("users").child(user.getUid()).child("user_orderHistory");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +50,32 @@ public class Billing_Details extends AppCompatActivity {
 
         confirmorder = findViewById(R.id.confirmqqorder);
         billing_price = findViewById(R.id.billing_price);
+        billing_address = findViewById(R.id.billing_address);
         billing_delivery_charges = findViewById(R.id.billing_delivery_charges);
         billing_amount_final = findViewById(R.id.billing_amount_final);
         item_cart_copy2 = new ArrayList<>();
+
+        myProfileRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    h_no = snapshot.child("house").getValue(String.class);
+                    street = snapshot.child("street").getValue(String.class);
+                    area = snapshot.child("area").getValue(String.class);
+                    land = snapshot.child("land").getValue(String.class);
+                    pincode = snapshot.child("pincode").getValue(String.class);
+                    billing_address.setText(h_no+" "+area+" "+street+" "+land+" "+pincode);
+                } else {
+                    billing_address.setText("Go To Profile Section And Complete Your Profile First");
+                    Toast.makeText(Billing_Details.this, "No Address Found", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(Billing_Details.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         myCartRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -68,7 +96,7 @@ public class Billing_Details extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(Billing_Details.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

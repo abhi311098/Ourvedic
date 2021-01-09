@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.abhi.ourvedic.model.DataFModel;
@@ -37,14 +36,17 @@ public class CartActivity extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myCartRef = database.getReference("users").child(user.getUid()).child("user_cart");
+    DatabaseReference myCartRef = database.getReference("users").child(user.getUid()).child("cart");
 
-    int total = 0;
-    TextView cart_total;
     Button place_order_tv;
+    String itemname1, localname1;
+    long itemid1, itemprice;
     ArrayList<item> item_cart_copy;
     private String TAG = "errorres";
+    int item_image;
 
+    ArrayList<item> map;
+    //HashMap<Object, Object> hashMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,37 +54,20 @@ public class CartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
 
 
-        cart_total = findViewById(R.id.cart_total);
         place_order_tv = findViewById(R.id.place_order_tv);
 
         item_cart_copy = new ArrayList<>();
-        //item_cart_copy.add(new item(101, "Agarbatti", "Incense stick", R.drawable.h101, 100));
-        //item_cart_copy.add(new item(102, "Ghee", "Ghee", R.drawable.h102, 100));
-        //item_cart_copy.add(new item(103, "Kumkuma", "Kumkuma", R.drawable.h103, 100));
-        //item_cart_copy.add(new item(104, "phool", "Flowers", R.drawable.h104, 100));
+//        item_cart_copy.add(new item(101, "Agarbatti", "Incense stick", R.drawable.h101, 100));
+//        item_cart_copy.add(new item(102, "Ghee", "Ghee", R.drawable.h102, 100));
+//        item_cart_copy.add(new item(103, "Kumkuma", "Kumkuma", R.drawable.h103, 100));
+//        item_cart_copy.add(new item(104, "phool", "Flowers", R.drawable.h104, 100));
 
+        startyourjalwa();
 
-        myCartRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot dss : snapshot.getChildren()){
-                        item i = dss.getValue(item.class);
-                        item_cart_copy.add(i);
-                        total += i.getItem_Price();
-                        CartAdapter cartAdapter = new CartAdapter(CartActivity.this, item_cart_copy);
-                        ListView cart_item = findViewById(R.id.cart_item);
-                        cart_item.setAdapter(cartAdapter);
-                        cart_total.setText("₹" + String.valueOf(total));
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        Log.v("al is ", String.valueOf(item_cart_copy.isEmpty()));
+        CartAdapter cartAdapter = new CartAdapter(CartActivity.this, item_cart_copy);
+        ListView cart_item = findViewById(R.id.cart_item);
+        cart_item.setAdapter(cartAdapter);
 
         place_order_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +77,39 @@ public class CartActivity extends AppCompatActivity {
                 if (networkInfo != null) {
                     startActivity(new Intent(CartActivity.this, Billing_Details.class));
                 }
+            }
+        });
+    }
+
+
+    private void startyourjalwa() {
+        myCartRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                        map = (ArrayList<item>) postSnapshot.getValue();
+                        if (map != null) {
+                            item_cart_copy.addAll(map);
+
+                            /*itemname1 = (String) map.get("itemname");
+                            localname1 = (String) map.get("localname");
+                            itemid1 = (long) map.get("itemid");
+                            itemprice = (long) map.get("itemprice");
+                            item_cart_copy.add(new item ((int) itemid1, localname1, itemname1, R.drawable.h133, (int) itemprice));*/
+                            /*hashMap = new HashMap<>();
+                            hashMap.put("itemid", itemid1);
+                            hashMap.put("itemname", itemname1);
+                            hashMap.put("localname", localname1);
+                            hashMap.put("itemprice", itemprice);*/
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(CartActivity.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

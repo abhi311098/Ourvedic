@@ -304,7 +304,6 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(getActivity(), "No Internet Connection\n Please turn on mobile data or wifi", Toast.LENGTH_SHORT).show();
             }
 
-
             hashMap.put("name", name);
             hashMap.put("house", house);
             hashMap.put("street", street);
