@@ -88,7 +88,7 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
         spino.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                quant = adapterView.getSelectedItemPosition() + 1;
+                quant = (int) adapterView.getItemAtPosition(i);
                 amount = "₹" + String.valueOf(currentitem.getItem_Price()*quant);
                 //price.setText(amount);                                                                     **for abhishek**
                 Log.v("text",amount);
