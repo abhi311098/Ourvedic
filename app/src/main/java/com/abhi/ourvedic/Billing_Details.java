@@ -31,6 +31,8 @@ public class Billing_Details extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     ArrayList<item> item_cart_copy2;
     int total = 0;
+    TextView billing_name;
+    TextView billing_number;
     TextView billing_price;
     TextView billing_delivery_charges;
     TextView billing_amount_final;
@@ -51,6 +53,8 @@ public class Billing_Details extends AppCompatActivity {
         confirmorder = findViewById(R.id.confirmqqorder);
         billing_price = findViewById(R.id.billing_price);
         billing_address = findViewById(R.id.billing_address);
+        billing_name = findViewById(R.id.billing_name);
+        billing_number = findViewById(R.id.billing_number);
         billing_delivery_charges = findViewById(R.id.billing_delivery_charges);
         billing_amount_final = findViewById(R.id.billing_amount_final);
         item_cart_copy2 = new ArrayList<>();
@@ -64,6 +68,8 @@ public class Billing_Details extends AppCompatActivity {
                     area = snapshot.child("area").getValue(String.class);
                     land = snapshot.child("land").getValue(String.class);
                     pincode = snapshot.child("pincode").getValue(String.class);
+                    billing_name.setText(snapshot.child("name").getValue(String.class));
+                    billing_number.setText(snapshot.child("number").getValue(String.class));
                     billing_address.setText(h_no+" "+area+" "+street+" "+land+" "+pincode);
                 } else {
                     billing_address.setText("Go To Profile Section And Complete Your Profile First");

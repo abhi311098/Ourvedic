@@ -106,24 +106,23 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
         removeItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseReference myCartRef = (DatabaseReference) database.getReference("users").child(user.getUid()).child("cart").orderByChild("item_id").equalTo(id);
-                myCartRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
-                            map = (ArrayList<item>) dataSnapshot.getValue();
-                            if (map != null) {
-                                dataSnapshot.getRef().removeValue();
-                            }
-                        }
-                        cardView.removeAllViews();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(getContext(), ""+error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+//                DatabaseReference myCartRef = (DatabaseReference) database.getReference("users").child(user.getUid()).child("cart").orderByChild("item_id").equalTo(id);
+//                myCartRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+//                            map = (ArrayList<item>) dataSnapshot.getValue();
+//                            if (map != null) {
+//                                dataSnapshot.getRef().removeValue();
+//                            }
+//                       }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//                        Toast.makeText(getContext(), ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
             }
         });
     }
