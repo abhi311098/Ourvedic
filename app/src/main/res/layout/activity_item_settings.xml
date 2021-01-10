@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AP_ItemSettings">
+    <TextView
+        android:id="@+id/tv_item_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Admin Item Menu"
+        android:textColor="@android:color/black"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"/>
+
+
+    <ListView
+        android:id="@+id/lv_current_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/tv_item_menu"
+        android:layout_above="@id/add_new_item"/>
+    <RelativeLayout
+        android:id="@+id/add_new_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="  Add New Item  "
+            android:background="@drawable/background_rounded"
+            android:textColor="@android:color/white"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_margin="12dp"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textAppearance="?android:textAppearanceMedium"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

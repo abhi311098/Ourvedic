@@ -34,6 +34,7 @@ import com.abhi.ourvedic.R;
 import com.abhi.ourvedic.model.ProfileModel;
 import com.abhi.ourvedic.roomdatabase.MyDatabase;
 import com.abhi.ourvedic.roomdatabase.RoomDB;
+import com.abhi.ourvedic.user_details;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -64,8 +65,9 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = database.getReference("Profile").child(user.getUid());
+    private DatabaseReference myRef = database.getReference("users").child(user.getUid()).child("user_profile");
     private DatabaseReference imgRef = database.getReference("ProfilePic").child(user.getUid());
+    private DatabaseReference detailsRef = database.getReference("users").child("user_details");
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
     private HashMap<String, Object> hashMap = new HashMap<>();
     private String file = null;
@@ -313,10 +315,15 @@ public class ProfileFragment extends Fragment {
             hashMap.put("email", email);
             hashMap.put("number", number);
 
+            String u_name = name;
+            String u_address = name + "," + house + "," + street + "," + area + "," + land + "," + pincode;
+            String u_mob = number;
+            
+
             myRef.setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(getActivity(), "Successfully Updated", Toast.LENGTH_SHORT).show();
+        @Override
+        public void onSuccess(Void aVoid) {
+            Toast.makeText(getActivity(), "Successfully Updated", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

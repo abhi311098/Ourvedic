@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp" android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:padding="15dp"
+    android:layout_centerVertical="true">
+
+    <EditText
+        android:id="@+id/et_localname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="12dp"
+        android:background="@drawable/bg_strokes"
+        android:hint="Add Local Name" />
+    <EditText
+        android:id="@+id/et_default_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_localname"
+        android:padding="12dp"
+        android:background="@drawable/bg_strokes"
+        android:hint="Add Default Name"
+        android:layout_margin="10dp"/>
+    <EditText
+        android:id="@+id/et_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_default_name"
+        android:padding="12dp"
+        android:inputType="number"
+        android:background="@drawable/bg_strokes"
+        android:hint="Add Price"
+        android:layout_margin="10dp"/>
+    <Button
+        android:id="@+id/add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_rounded"
+        android:text="  Add  "
+        android:textColor="@android:color/white"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/et_price"
+        android:layout_margin="10dp"/>
+</RelativeLayout>

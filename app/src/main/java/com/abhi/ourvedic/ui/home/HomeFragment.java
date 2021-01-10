@@ -1,7 +1,11 @@
 package com.abhi.ourvedic.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -19,12 +24,19 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import com.abhi.ourvedic.CartActivity;
+import com.abhi.ourvedic.CartAdapter;
 import com.abhi.ourvedic.MainActivity;
 import com.abhi.ourvedic.R;
 import com.abhi.ourvedic.ListAdapter;
 import com.abhi.ourvedic.Splash_Screen2;
 import com.abhi.ourvedic.ViewPagerAdapter;
 import com.abhi.ourvedic.item;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -38,13 +50,41 @@ public class HomeFragment extends Fragment {
     private int dotscount;
     private ImageView[] dots;
     ViewPager viewPager;
+    DatabaseReference all_itemRef = FirebaseDatabase.getInstance().getReference("Admin").child("all_items");
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        final View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        ArrayList<item> items = new ArrayList<>();
-        items.add(new item(101, "Agarbatti", "Incense stick",R.drawable.h101, 100));
+        final ArrayList<item> items = new ArrayList<>();
+
+        ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        if (networkInfo != null) {
+            all_itemRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        for(DataSnapshot dss : snapshot.getChildren()){
+                            item i = dss.getValue(item.class);
+                            items.add(i);
+                            ListAdapter itemsAdapter = new ListAdapter(getActivity(), items);
+                            ListView listView = root.findViewById(R.id.list);
+                            listView.setAdapter(itemsAdapter);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }
+        else {
+            Toast.makeText(getContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+        }
+
+        /*items.add(new item(101, "Agarbatti", "Incense stick",R.drawable.h101, 100));
         items.add(new item(102, "Ghee", "Ghee",R.drawable.h102, 100));
         items.add(new item(103, "Kumkuma", "Kumkuma",R.drawable.h103, 100));
         items.add(new item(104, "Phool", "Flowers",R.drawable.h104, 100));
@@ -76,12 +116,8 @@ public class HomeFragment extends Fragment {
         items.add(new item(130, "Pila Chawal", "Yellow rice",R.drawable.h130, 100));
         items.add(new item(131, "Peele Vastr", "Yellow clothes",R.drawable.h131, 100));
         items.add(new item(132, "Agarwood", "Agarwood",R.drawable.h132, 100));
-        items.add(new item(133, "Laung", "Cloves",R.drawable.h133, 100));
+        items.add(new item(133, "Laung", "Cloves",R.drawable.h133, 100));*/
 
-
-        ListAdapter itemsAdapter = new ListAdapter(getActivity(), items);
-        ListView listView = root.findViewById(R.id.list);
-        listView.setAdapter(itemsAdapter);
 
 
         viewPager = root.findViewById(R.id.viewPager);

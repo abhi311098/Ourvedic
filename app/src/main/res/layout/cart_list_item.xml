@@ -58,7 +58,7 @@
                 android:translationY="-15dp"
                 android:background="@drawable/bg_spinner"
                 android:padding="2dp"
-                android:layout_toStartOf="@id/image"
+                android:layout_toStartOf="@id/cardview"
                 android:layout_below="@id/item_price">
                 <TextView
                     android:layout_width="wrap_content"
@@ -83,12 +83,23 @@
                 android:layout_marginTop="10dp"/>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="₹"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/black"
+                android:translationY="-20dp"
+                android:layout_centerVertical="true"
+                android:textSize="20sp"
+                android:layout_toStartOf="@id/item_price"/>
+
+            <TextView
                 android:id="@+id/item_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@id/image"
+                android:layout_toStartOf="@id/cardview"
                 android:layout_centerVertical="true"
-                android:text="₹100"
+                tools:text="100"
                 android:layout_marginEnd="10dp"
                 android:textColor="#000000"
                 android:textAppearance="?android:textAppearanceMedium"

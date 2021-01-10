@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ public class CartActivity extends AppCompatActivity {
     Button place_order_tv;
     ArrayList<item> item_cart_copy;
     private String TAG = "errorres";
+    ImageView emptyCart;
 
 
     @Override
@@ -55,6 +57,7 @@ public class CartActivity extends AppCompatActivity {
 
         cart_total = findViewById(R.id.cart_total);
         place_order_tv = findViewById(R.id.place_order_tv);
+        emptyCart = findViewById(R.id.iv_emptyCart);
 
         item_cart_copy = new ArrayList<>();
         //item_cart_copy.add(new item(101, "Agarbatti", "Incense stick", R.drawable.h101, 100));
@@ -67,6 +70,7 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    emptyCart.setVisibility(View.GONE);
                     for (DataSnapshot dss : snapshot.getChildren()) {
                         item i = dss.getValue(item.class);
                         item_cart_copy.add(i);
@@ -76,6 +80,9 @@ public class CartActivity extends AppCompatActivity {
                         cart_item.setAdapter(cartAdapter);
                         cart_total.setText("₹" + String.valueOf(total));
                     }
+                }
+                else {
+                    emptyCart.setVisibility(View.VISIBLE);
                 }
             }
 

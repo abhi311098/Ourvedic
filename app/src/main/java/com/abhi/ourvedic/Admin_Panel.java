@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +15,7 @@ public class Admin_Panel extends AppCompatActivity {
 
     TextView tv_admin_panel;
     CardView current_orders;
+    CardView item_settings;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,8 +43,15 @@ public class Admin_Panel extends AppCompatActivity {
         current_orders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Admin_Panel.this, Current_Ordre_Ap.class);
+                Intent i = new Intent(Admin_Panel.this, AP_Current_Order.class);
                 startActivity(i);
+            }
+        });
+        item_settings = findViewById(R.id.item_settings);
+        item_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Admin_Panel.this, AP_ItemSettings.class));
             }
         });
     }

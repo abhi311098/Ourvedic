@@ -7,6 +7,14 @@
     android:orientation="vertical"
     tools:context=".CartActivity">
 
+    <ImageView
+        android:id="@+id/iv_emptyCart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/emptycart"
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
+
     <ListView
         android:id="@+id/cart_item"
         android:layout_width="match_parent"
@@ -41,7 +49,7 @@
             android:id="@+id/cart_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="₹400"
+            android:text="₹0"
             android:layout_toEndOf="@id/total_txt"
             android:textColor="#000000"
             android:textSize="25sp"

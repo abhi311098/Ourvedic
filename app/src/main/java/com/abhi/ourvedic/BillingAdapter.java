@@ -22,8 +22,6 @@ public class BillingAdapter extends ArrayAdapter<item> implements AdapterView.On
 
     String amount;
     TextView price;
-    int count = -1;
-    TextView sno;
 
     public BillingAdapter(Activity context, ArrayList<item> cal) {
         super(context, 0, cal);

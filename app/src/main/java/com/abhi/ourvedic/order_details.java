@@ -1,8 +1,9 @@
 package com.abhi.ourvedic;
 
-public class Order_details {
+public class order_details {
     private String name;
-    private int orderId;
+    private String email;
+    private String orderIds;
     private String delivery_address;
     private String mobile;
     private int final_amount;
@@ -10,9 +11,10 @@ public class Order_details {
     private String order_date_time;     // in dd/mm/yyyy  followed with hh/mm of 24hrs format  like 090120211810
     private String delivered_date_time; //Same as above & can be "null" if undelivered or yet not delivered
 
-    public Order_details(String name, int orderId, String delivery_address, String mobile, int final_amount, String mode_of_payment, String order_date_time, String delivered_date_time) {
+    public order_details(String name, String email, String orderIds, String delivery_address, String mobile, int final_amount, String mode_of_payment, String order_date_time, String delivered_date_time) {
         this.name = name;
-        this.orderId = orderId;
+        this.email = email;
+        this.orderIds = orderIds;
         this.delivery_address = delivery_address;
         this.mobile = mobile;
         this.final_amount = final_amount;
@@ -25,8 +27,10 @@ public class Order_details {
         return name;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public String getEmail() {return email; }
+
+    public String getOrderIds() {
+        return orderIds;
     }
 
     public String getDelivery_address() {

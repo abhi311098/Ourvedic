@@ -1,6 +1,7 @@
 package com.abhi.ourvedic;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myCartRef = database.getReference("users").child(user.getUid()).child("user_cart");
 
     CardView cardView;
 
@@ -68,14 +71,39 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
         imageResource.setImageResource(currentitem.getItem_image());
 
         price = listItemView.findViewById(R.id.item_price);
+        Log.v("price",String.valueOf(currentitem.getItem_Price()));
+        price.setText(String.valueOf(currentitem.getItem_Price()));
 
         removeItem = listItemView.findViewById(R.id.Remove);
+        final int id = currentitem.getItem_id();
+        Log.e("errorres", "abhishek: "+id );
+        removeItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                Query myCartRef = database.getReference("users").child(user.getUid()).child("user_cart").orderByChild("item_id").equalTo(id);
+                myCartRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                            dataSnapshot.getRef().removeValue();
+                            Toast.makeText(getContext(), "Item Removed", Toast.LENGTH_SHORT).show();
+                            Intent intent = ((Activity)view.getContext()).getIntent();
+                            ((Activity)view.getContext()).finish();
+                            ((Activity)view.getContext()).startActivity(intent);;
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getContext(), ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
 
         cardView = listItemView.findViewById(R.id.cardview);
 
         Move_to_WishList = listItemView.findViewById(R.id.Move_to_WishList);                //for abhishek
-
-        abhishek(currentitem.getItem_id());
 
         Spinner spino = listItemView.findViewById(R.id.spinner);
 
@@ -89,7 +117,20 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 quant = Integer.valueOf(String.valueOf(adapterView.getItemAtPosition(i)));
-                amount = "₹" + String.valueOf(currentitem.getItem_Price()*quant);
+                amount = String.valueOf(currentitem.getItem_Price()*quant);
+                Query myCartRef2 = database.getReference("users").child(user.getUid()).child("user_cart").orderByChild("item_id").equalTo(currentitem.getItem_id());
+                myCartRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                            dataSnapshot.getRef().child("item_Price").setValue(Integer.parseInt(amount));
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getContext(), ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
                 price.setText(amount);
             }
             @Override
@@ -101,27 +142,7 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
     }
 
     private void abhishek(int item_id) {
-        final int id = item_id;
-        Log.e("errorres", "abhishek: "+id );
-        removeItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatabaseReference myCartRef = (DatabaseReference) database.getReference("users").child(user.getUid()).child("cart").orderByChild("item_id").equalTo(id);
-                myCartRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
-                                dataSnapshot.getRef().removeValue();
-                        }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(getContext(), ""+error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
     }
 
     @Override
