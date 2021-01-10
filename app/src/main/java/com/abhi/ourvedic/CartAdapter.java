@@ -37,7 +37,7 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
 
     CardView cardView;
 
-    String[] quantity = { "1", "2", "3", "4", "5", "6" };
+    String[] quantity = { "1", "2", "3", "4", "5" };
     int quant;
     String amount;
     TextView price;
@@ -88,10 +88,9 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
         spino.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                quant = (int) adapterView.getItemAtPosition(i);
+                quant = Integer.valueOf(String.valueOf(adapterView.getItemAtPosition(i)));
                 amount = "₹" + String.valueOf(currentitem.getItem_Price()*quant);
-                //price.setText(amount);                                                                     **for abhishek**
-                Log.v("text",amount);
+                price.setText(amount);
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -103,26 +102,24 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
 
     private void abhishek(int item_id) {
         final int id = item_id;
+        Log.e("errorres", "abhishek: "+id );
         removeItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                DatabaseReference myCartRef = (DatabaseReference) database.getReference("users").child(user.getUid()).child("cart").orderByChild("item_id").equalTo(id);
-//                myCartRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
-//                            map = (ArrayList<item>) dataSnapshot.getValue();
-//                            if (map != null) {
-//                                dataSnapshot.getRef().removeValue();
-//                            }
-//                       }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//                        Toast.makeText(getContext(), ""+error.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+                DatabaseReference myCartRef = (DatabaseReference) database.getReference("users").child(user.getUid()).child("cart").orderByChild("item_id").equalTo(id);
+                myCartRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                                dataSnapshot.getRef().removeValue();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getContext(), ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }

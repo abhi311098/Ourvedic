@@ -20,7 +20,7 @@
                 android:id="@+id/billing_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ankur Thakur"
+                android:text="No Address Found"
                 android:layout_margin="5dp"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@android:color/black"
@@ -29,7 +29,7 @@
                 android:id="@+id/billing_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="6394812186"
+                android:text=""
                 android:layout_margin="5dp"
                 android:layout_below="@id/billing_name"
                 android:textColor="@android:color/black"/>
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_below="@id/billing_number"
-                android:text="Thakur's House, Infront of N.S. Mall, Madhpura, Kannauj, UP - 209725"
+                android:text=""
                 android:textColor="@android:color/black"/>
             <ImageView
                 android:layout_width="25dp"
