@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="false"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:elevation="3dp"
+        android:paddingStart="20dp"
+        android:id="@+id/txtcontainer">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_bName"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold"
+            android:layout_marginTop="15dp"
+            android:textColor="#000000"
+            tools:text="Bname"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bEmail"
+            android:layout_below="@id/tv_bName"
+            android:textColor="@android:color/black"
+            android:textAppearance="?android:textAppearanceSmall"
+            tools:text="Bname@gmail.com"/>
+        <TextView
+            android:id="@+id/mob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="9876543210"
+            android:textColor="@android:color/black"
+            android:padding="1dp"
+            android:layout_below="@id/bEmail"
+            android:textAppearance="?android:textAppearanceSmall"/>
+        <TextView
+            android:id="@+id/tv_order_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order Date : "
+            android:layout_marginTop="3dp"
+            android:textColor="@android:color/black"
+            android:layout_below="@id/mob"/>
+        <TextView
+            android:id="@+id/order_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/tv_order_date"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@android:color/black"
+            android:layout_below="@id/mob"
+            android:layout_marginTop="3dp"
+            tools:text="23/12/2020"/>
+
+        <TextView
+            android:id="@+id/tv_delivery_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delivery Date : "
+            android:layout_marginTop="3dp"
+            android:textColor="@android:color/black"
+            android:layout_below="@id/tv_order_date"/>
+        <TextView
+            android:id="@+id/delivey_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/tv_delivery_date"
+            tools:text="NA"
+            android:layout_below="@id/tv_order_date"
+            android:layout_marginTop="3dp"
+            android:textColor="@android:color/black"/>
+        <TextView
+            android:id="@+id/tv_itemIds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item Ids: "
+            android:textColor="@android:color/black"
+            android:layout_below="@id/tv_delivery_date"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_marginTop="5dp"/>
+        <TextView
+            android:id="@+id/itemIds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_itemIds"
+            tools:text="101-102-103"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:textAppearance="?android:textAppearanceMedium"/>
+        <TextView
+            android:id="@+id/tv_delivery_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delivery Address: "
+            android:textColor="@android:color/black"
+            android:layout_below="@id/itemIds"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_marginTop="3dp" />
+        <TextView
+            android:id="@+id/delivery_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            tools:text="Vishwakarma house, Infront of N.S. mall, Shivjanj, Ara, Bihar"
+            android:layout_below="@id/tv_delivery_address"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="10dp"
+            android:textAppearance="?android:textAppearanceMedium"/>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="150dp"
+            android:padding="10dp"
+            android:layout_marginTop="32dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true">
+
+            <TextView
+                android:id="@+id/tv_mop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mode Of Payment:"
+                android:layout_below="@id/rv"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="3dp"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/mop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="COD"
+                android:layout_marginStart="5dp"
+                android:layout_below="@id/tv_mop"
+                android:textColor="@android:color/black"/>
+
+            <RelativeLayout
+                android:id="@+id/rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp">
+                <TextView
+                    android:id="@+id/tv_billing_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:text="Total : ₹"
+                    android:textAppearance="?android:textAppearanceMedium"/>
+
+                <TextView
+                    android:id="@+id/billing_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    tools:text="1000"
+                    android:layout_toEndOf="@id/tv_billing_total"
+                    android:textAppearance="?android:textAppearanceMedium"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/if_delivered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_strokes"
+                android:layout_marginTop="10dp"
+                android:paddingStart="3dp"
+                android:layout_below="@id/mop">
+                <ImageView
+                    android:id="@+id/add"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toEndOf="@id/item_price"
+                    android:src="@drawable/ic_baseline_check_circle_24" />
+                <TextView
+                    android:id="@+id/item_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="  Delivered?"
+                    android:textColor="@android:color/black"
+                    android:textAppearance="?android:textAppearanceMedium"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

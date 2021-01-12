@@ -35,7 +35,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Billing_Details extends AppCompatActivity {
 
@@ -158,7 +157,7 @@ public class Billing_Details extends AppCompatActivity {
                     String address = h_no+", "+land+", "+street+", "+area+", "+pincode;
                     order_details o = new order_details(name, email, String.valueOf(s), address, mob, total, "cash On Delivery", currentDateAndTime, "NA");
 
-                    Log.v("Tags", o.getName() + "-" + o.getEmail() + "-" + o.getOrderIds() + "-" + o.getDelivery_address() + "-" + o.getMobile() + "-" + total + "-" + o.getMode_of_payment() + "-" + o.getDelivered_date_time() + "-" + o.getDelivered_date_time());
+                    Log.v("Tags", o.getName() + "-" + o.getEmail() + "-" + o.getItemIds() + "-" + o.getDelivery_address() + "-" + o.getMobile() + "-" + total + "-" + o.getMode_of_payment() + "-" + o.getDelivered_date_time() + "-" + o.getDelivered_date_time());
 
                     myHistoryRef.push().setValue(o).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -183,7 +182,6 @@ public class Billing_Details extends AppCompatActivity {
                             Log.e(TAG, "Current Order Failure: fail: "+e.getMessage());
                         }
                     });
-                    Toast.makeText(getApplicationContext(),"Order Successfully Placed!",Toast.LENGTH_SHORT).show();
                     vibrator.vibrate(500);
                 }
                 else {

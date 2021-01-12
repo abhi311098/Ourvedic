@@ -24,17 +24,17 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class itemSettingAdapter extends ArrayAdapter<item> {
+public class AP_ItemSettingAdapter extends ArrayAdapter<item> {
 
     Vibrator Vibrator;
     DatabaseReference all_itemRef = FirebaseDatabase.getInstance().getReference("Admin").child("all_items");
 
 
 
-    public itemSettingAdapter(@NonNull Context context, int resource) {
+    public AP_ItemSettingAdapter(@NonNull Context context, int resource) {
         super(context, resource);
     }
-    public itemSettingAdapter(Activity context, ArrayList<item> al) {
+    public AP_ItemSettingAdapter(Activity context, ArrayList<item> al) {
         super(context, 0, al);
         Vibrator = (Vibrator)getContext().getSystemService(MainActivity.VIBRATOR_SERVICE);
     }

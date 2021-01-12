@@ -80,8 +80,8 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
         removeItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                Query myCartRef = database.getReference("users").child(user.getUid()).child("user_cart").orderByChild("item_id").equalTo(id);
-                myCartRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                Query myCartRefquery = database.getReference("users").child(user.getUid()).child("user_cart").orderByChild("item_id").equalTo(id);
+                myCartRefquery.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
@@ -89,7 +89,7 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
                             Toast.makeText(getContext(), "Item Removed", Toast.LENGTH_SHORT).show();
                             Intent intent = ((Activity)view.getContext()).getIntent();
                             ((Activity)view.getContext()).finish();
-                            ((Activity)view.getContext()).startActivity(intent);;
+                            ((Activity)view.getContext()).startActivity(intent);
                         }
                     }
                     @Override

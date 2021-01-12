@@ -16,6 +16,7 @@ public class Admin_Panel extends AppCompatActivity {
     TextView tv_admin_panel;
     CardView current_orders;
     CardView item_settings;
+    CardView ordersHistory;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,6 +53,13 @@ public class Admin_Panel extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Admin_Panel.this, AP_ItemSettings.class));
+            }
+        });
+        ordersHistory = findViewById(R.id.ordersHistory);
+        ordersHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Admin_Panel.this, AP_orderHistory.class));
             }
         });
     }

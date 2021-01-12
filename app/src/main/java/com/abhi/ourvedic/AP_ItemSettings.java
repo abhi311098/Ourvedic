@@ -36,7 +36,7 @@ public class AP_ItemSettings extends AppCompatActivity {
     Dialog add_new_item_dialog;
     int price=0;
     ListView lv_current_items;
-    itemSettingAdapter itemSettingAdapter;
+    AP_ItemSettingAdapter AP_ItemSettingAdapter;
 
 
     @Override
@@ -58,8 +58,8 @@ public class AP_ItemSettings extends AppCompatActivity {
                         for(DataSnapshot dss : snapshot.getChildren()){
                             item i = dss.getValue(item.class);
                             itemArrayList.add(i);
-                            itemSettingAdapter = new itemSettingAdapter(AP_ItemSettings.this, itemArrayList);
-                            lv_current_items.setAdapter(itemSettingAdapter);
+                            AP_ItemSettingAdapter = new AP_ItemSettingAdapter(AP_ItemSettings.this, itemArrayList);
+                            lv_current_items.setAdapter(AP_ItemSettingAdapter);
                         }
                     }
                 }
@@ -134,7 +134,7 @@ public class AP_ItemSettings extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.v("onSuccess","done!");
-                                    itemSettingAdapter.notifyDataSetChanged();
+                                    AP_ItemSettingAdapter.notifyDataSetChanged();
                                     add_new_item_dialog.dismiss();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {

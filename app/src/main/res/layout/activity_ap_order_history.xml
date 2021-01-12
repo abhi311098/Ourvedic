@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".AP_Current_Order">
+    tools:context=".AP_orderHistory">
     <ListView
-        android:id="@+id/lv_current_orders"
+        android:id="@+id/lv_ap_orderHistory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     <ImageView
         android:id="@+id/nothing_to_show"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/nothing_to_show"
+        android:src="@drawable/nothing_to_show2"
         android:visibility="gone"/>
 </RelativeLayout>

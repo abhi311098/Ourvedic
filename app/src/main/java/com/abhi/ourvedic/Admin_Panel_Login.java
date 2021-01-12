@@ -12,8 +12,8 @@ import android.widget.Toast;
 public class Admin_Panel_Login extends AppCompatActivity {
 
     EditText admin_password, admin_email;
-    private final String admin_remail = "IAMADMIN23122020";
-    private final String getAdmin_rpassword = "THISISADMINPASSWORD23122020";
+    private final String admin_remail = "000";
+    private final String getAdmin_rpassword = "000";
     Button login_as_admin_btn;
 
     @Override

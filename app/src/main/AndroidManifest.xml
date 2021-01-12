@@ -30,20 +30,29 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AP_ItemSettings"
+        <activity android:name=".AP_orderHistory"></activity>
+        <activity
+            android:name=".AP_ItemSettings"
             android:label="Item Settings">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Admin_Panel"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Admin_Panel" />
         </activity>
         <activity android:name=".Splash_Screen2" />
-        <activity android:name=".Admin_Panel_Login"
+        <activity
+            android:name=".Admin_Panel_Login"
             android:label="Admin Pannel Login">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginPage" />
         </activity>
-        <activity android:name=".AP_Current_Order"
-            android:label="Current Orders"/>
+        <activity
+            android:name=".AP_Current_Order"
+            android:label="Current Orders">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Admin_Panel" />
+        </activity>
         <activity android:name=".Admin_Panel" />
         <activity
             android:name=".Billing_Details"
@@ -62,16 +71,19 @@
         <!-- android:name=".service.ServiceDataWifi" -->
         <!-- android:enabled="true" -->
         <!-- android:exported="true" /> -->
-        <activity android:name=".ResetPassword"
-            android:label="Reset Password"/>
+        <activity
+            android:name=".ResetPassword"
+            android:label="Reset Password" />
         <activity android:name=".ForgetPassword">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginPage" />
         </activity>
-        <activity android:name=".LoginPage"
-            android:label="Login Page"/>
-        <activity android:name=".RegistrationPage"
+        <activity
+            android:name=".LoginPage"
+            android:label="Login Page" />
+        <activity
+            android:name=".RegistrationPage"
             android:label="Registration Page">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
