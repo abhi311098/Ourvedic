@@ -1,15 +1,17 @@
 package com.abhi.ourvedic;
 
 public class order_details {
-    private final String name;
-    private final String email;
-    private final String itemIds;
-    private final String delivery_address;
-    private final String mobile;
-    private final int final_amount;
-    private final String mode_of_payment;
-    private final String order_date_time;     // in dd/mm/yyyy  followed with hh/mm of 24hrs format  like 090120211810
+    private String name;
+    private String email;
+    private String itemIds;
+    private String delivery_address;
+    private String mobile;
+    private int final_amount;
+    private String mode_of_payment;
+    private String order_date_time;     // in dd/mm/yyyy  followed with hh/mm of 24hrs format  like 090120211810
     private String delivered_date_time; //Same as above & can be "null" if undelivered or yet not delivered
+
+    public order_details(){}
 
     public order_details(String name, String email, String orderIds, String delivery_address, String mobile, int final_amount, String mode_of_payment, String order_date_time, String delivered_date_time) {
         this.name = name;

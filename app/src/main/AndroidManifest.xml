@@ -30,7 +30,12 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AP_orderHistory"></activity>
+        <activity android:name=".WishlistActivity"
+            android:label="WishList">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+        <activity android:name=".AP_orderHistory" />
         <activity
             android:name=".AP_ItemSettings"
             android:label="Item Settings">

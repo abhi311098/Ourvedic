@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/nav_myOrders"
-        android:name="com.abhi.ourvedic.ui.settings.SettingsFragment"
+        android:name="com.abhi.ourvedic.ui.OrderHistory.OrderHistoryFragment"
         android:label="@string/menu_myOrders"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_order_history" />
 
     <fragment
         android:id="@+id/profileFragment"

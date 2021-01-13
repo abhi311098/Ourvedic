@@ -93,8 +93,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.logout:
                 logout();
                 break;
-            default:
-                Toast.makeText(this, "Something is wrong", Toast.LENGTH_SHORT).show();
+
+            case R.id.wishlist:
+                startActivity(new Intent(MainActivity.this, WishlistActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

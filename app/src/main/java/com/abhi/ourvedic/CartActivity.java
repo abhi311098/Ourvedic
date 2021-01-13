@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +47,7 @@ public class CartActivity extends AppCompatActivity {
     Button place_order_tv;
     ArrayList<item> item_cart_copy;
     private String TAG = "errorres";
-    ImageView emptyCart;
+    RelativeLayout emptyCart;
 
 
     @Override
@@ -85,10 +86,8 @@ public class CartActivity extends AppCompatActivity {
                     emptyCart.setVisibility(View.VISIBLE);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 

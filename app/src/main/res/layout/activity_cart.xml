@@ -4,16 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical"
     tools:context=".CartActivity">
 
-    <ImageView
+    <RelativeLayout
         android:id="@+id/iv_emptyCart"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/emptycart"
-        android:layout_centerVertical="true"
-        android:visibility="gone"/>
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:translationY="-20dp">
+        <ImageView
+            android:id="@+id/iv_emptyCart_"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/emptycart"
+            android:layout_centerVertical="true"
+            android:scaleType="center" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Cart is Empty!"
+            android:textColor="@android:color/black"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_below="@id/iv_emptyCart_"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
 
     <ListView
         android:id="@+id/cart_item"

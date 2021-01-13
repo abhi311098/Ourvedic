@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
                         for(DataSnapshot dss : snapshot.getChildren()){
                             item i = dss.getValue(item.class);
                             items.add(i);
-                            ListAdapter itemsAdapter = new ListAdapter(getActivity(), items);
+                            ListAdapter itemsAdapter = new ListAdapter(getActivity(), items, false);
                             ListView listView = root.findViewById(R.id.list);
                             listView.setAdapter(itemsAdapter);
                         }

@@ -1,14 +1,14 @@
-package com.abhi.ourvedic.ui.settings;
+package com.abhi.ourvedic.ui.OrderHistory;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SettingsViewModel extends ViewModel {
+public class OrderHistoryViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SettingsViewModel() {
+    public OrderHistoryViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is slideshow fragment");
     }

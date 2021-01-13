@@ -2,7 +2,6 @@ package com.abhi.ourvedic;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,11 +32,11 @@ import java.util.ArrayList;
 
 public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnItemSelectedListener {
 
-    ArrayList<item> map;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myCartRef = database.getReference("users").child(user.getUid()).child("user_cart");
+    DatabaseReference wishlistRef = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("user_wishlist");
 
     CardView cardView;
 
@@ -45,7 +45,7 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
     String amount;
     TextView price;
     TextView removeItem;
-    TextView Move_to_WishList;
+    TextView move_to_wishList;
 
     public CartAdapter(Activity context, ArrayList<item> cal) {
         super(context, 0, cal);
@@ -76,7 +76,7 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
 
         removeItem = listItemView.findViewById(R.id.Remove);
         final int id = currentitem.getItem_id();
-        Log.e("errorres", "abhishek: "+id );
+
         removeItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -103,7 +103,41 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
 
         cardView = listItemView.findViewById(R.id.cardview);
 
-        Move_to_WishList = listItemView.findViewById(R.id.Move_to_WishList);                //for abhishek
+        move_to_wishList = listItemView.findViewById(R.id.move_to_cart);
+        move_to_wishList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                wishlistRef.push().setValue(currentitem).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.v("item ", "added to wishlist");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.v("item ", "added to wishlist failed");
+                    }
+                });
+
+                Query myCartRefquery = database.getReference("users").child(user.getUid()).child("user_cart").orderByChild("item_id").equalTo(id);
+                myCartRefquery.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                            dataSnapshot.getRef().removeValue();
+                            Toast.makeText(getContext(), "Moved to Wishlist", Toast.LENGTH_SHORT).show();
+                            Intent intent = ((Activity)view.getContext()).getIntent();
+                            ((Activity)view.getContext()).finish();
+                            ((Activity)view.getContext()).startActivity(intent);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getContext(), ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
         Spinner spino = listItemView.findViewById(R.id.spinner);
 
@@ -141,9 +175,6 @@ public class CartAdapter extends ArrayAdapter<item> implements AdapterView.OnIte
         return listItemView;
     }
 
-    private void abhishek(int item_id) {
-
-    }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
