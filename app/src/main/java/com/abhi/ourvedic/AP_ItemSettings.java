@@ -4,11 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -37,45 +40,12 @@ public class AP_ItemSettings extends AppCompatActivity {
     int price=0;
     ListView lv_current_items;
     AP_ItemSettingAdapter AP_ItemSettingAdapter;
+    ProgressDialog progressDialog;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_settings);
-
-        add_new_item = findViewById(R.id.add_new_item);
-        lv_current_items = findViewById(R.id.lv_current_items);
-
-
-        ConnectivityManager manager = (ConnectivityManager) getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-        if (networkInfo != null) {
-            all_itemRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
-                        for(DataSnapshot dss : snapshot.getChildren()){
-                            item i = dss.getValue(item.class);
-                            itemArrayList.add(i);
-                            AP_ItemSettingAdapter = new AP_ItemSettingAdapter(AP_ItemSettings.this, itemArrayList);
-                            lv_current_items.setAdapter(AP_ItemSettingAdapter);
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
-        else {
-            Toast.makeText(getApplicationContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
-        }
-
-        itemArrayList = new ArrayList<>();
-        /*itemArrayList.add(new item(101, "Agarbatti", "Incense stick",R.drawable.h101, 100));
+    private void refresh(){
+        all_itemRef.removeValue();
+        itemArrayList.add(new item(101, "Agarbatti", "Incense stick",R.drawable.h101, 100));
         itemArrayList.add(new item(102, "Ghee", "Ghee",R.drawable.h102, 100));
         itemArrayList.add(new item(103, "Kumkuma", "Kumkuma",R.drawable.h103, 100));
         itemArrayList.add(new item(104, "Phool", "Flowers",R.drawable.h104, 100));
@@ -107,7 +77,71 @@ public class AP_ItemSettings extends AppCompatActivity {
         itemArrayList.add(new item(130, "Pila Chawal", "Yellow rice",R.drawable.h130, 100));
         itemArrayList.add(new item(131, "Peele Vastr", "Yellow clothes",R.drawable.h131, 100));
         itemArrayList.add(new item(132, "Agarwood", "Agarwood",R.drawable.h132, 100));
-        itemArrayList.add(new item(133, "Laung", "Cloves",R.drawable.h133, 100));*/
+        itemArrayList.add(new item(133, "Laung", "Cloves",R.drawable.h133, 100));
+        all_itemRef.setValue(itemArrayList);
+        Toast.makeText(AP_ItemSettings.this, "Item Refresh and Reset Successful", Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.item_settings_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.refresh) {
+            refresh();
+            return true;
+        }
+        return(super.onOptionsItemSelected(item));
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_item_settings);
+
+        add_new_item = findViewById(R.id.add_new_item);
+        lv_current_items = findViewById(R.id.lv_current_items);
+        progressDialog = new ProgressDialog(AP_ItemSettings.this);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog_view);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        itemArrayList = new ArrayList<>();
+
+        ConnectivityManager manager = (ConnectivityManager) getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        if (networkInfo != null) {
+            all_itemRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        for(DataSnapshot dss : snapshot.getChildren()){
+                            item i = dss.getValue(item.class);
+                            itemArrayList.add(i);
+                            progressDialog.dismiss();
+                            AP_ItemSettingAdapter = new AP_ItemSettingAdapter(AP_ItemSettings.this, itemArrayList);
+                            lv_current_items.setAdapter(AP_ItemSettingAdapter);
+                        }
+                    }
+                    else {
+                        progressDialog.dismiss();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+        }
 
 
         add_new_item.setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,6 @@
 package com.abhi.ourvedic.ui.home;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -26,6 +27,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.abhi.ourvedic.CartActivity;
 import com.abhi.ourvedic.CartAdapter;
+import com.abhi.ourvedic.LoginPage;
 import com.abhi.ourvedic.MainActivity;
 import com.abhi.ourvedic.R;
 import com.abhi.ourvedic.ListAdapter;
@@ -49,6 +51,7 @@ public class HomeFragment extends Fragment {
     LinearLayout SliderDots;
     private int dotscount;
     private ImageView[] dots;
+    ProgressDialog progressDialog;
     ViewPager viewPager;
     DatabaseReference all_itemRef = FirebaseDatabase.getInstance().getReference("Admin").child("all_items");
 
@@ -57,6 +60,12 @@ public class HomeFragment extends Fragment {
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         final ArrayList<item> items = new ArrayList<>();
+        progressDialog = new ProgressDialog(getActivity());
+
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog_view);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
@@ -68,10 +77,14 @@ public class HomeFragment extends Fragment {
                         for(DataSnapshot dss : snapshot.getChildren()){
                             item i = dss.getValue(item.class);
                             items.add(i);
+                            progressDialog.dismiss();
                             ListAdapter itemsAdapter = new ListAdapter(getActivity(), items, false);
                             ListView listView = root.findViewById(R.id.list);
                             listView.setAdapter(itemsAdapter);
                         }
+                    }
+                    else {
+                        progressDialog.dismiss();
                     }
                 }
 

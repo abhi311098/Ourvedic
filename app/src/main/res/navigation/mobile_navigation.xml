@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_booking"
         android:name="com.abhi.ourvedic.ui.booking.BookingFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_booking" />
@@ -28,4 +28,5 @@
         android:name="com.abhi.ourvedic.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
 </navigation>

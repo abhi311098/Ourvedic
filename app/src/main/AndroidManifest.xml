@@ -35,7 +35,11 @@
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"/>
         </activity>
-        <activity android:name=".AP_orderHistory" />
+        <activity android:name=".AP_orderHistory"
+            android:label="Admin Order History">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Admin_Panel"/>
+        </activity>
         <activity
             android:name=".AP_ItemSettings"
             android:label="Item Settings">
@@ -60,7 +64,7 @@
         </activity>
         <activity android:name=".Admin_Panel" />
         <activity
-            android:name=".Billing_Details"
+            android:name=".BillingDetailsActivity"
             android:label="Billing">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

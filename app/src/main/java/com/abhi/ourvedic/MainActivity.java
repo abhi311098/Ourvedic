@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.widget.Toast;
 
 import com.abhi.ourvedic.roomdatabase.MyDatabase;
 import com.abhi.ourvedic.roomdatabase.RoomDB;
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_myOrders, R.id.profileFragment)
+                R.id.nav_home, R.id.nav_booking, R.id.nav_myOrders, R.id.profileFragment)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

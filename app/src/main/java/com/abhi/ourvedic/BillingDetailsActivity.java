@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -36,7 +37,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class Billing_Details extends AppCompatActivity {
+public class BillingDetailsActivity extends AppCompatActivity {
 
     private String TAG = "errorres";
     Button confirmorder;
@@ -65,12 +66,13 @@ public class Billing_Details extends AppCompatActivity {
     DatabaseReference myHistoryRef = database.getReference("users").child(user.getUid()).child("user_orderHistory");
     DatabaseReference adminRef = database.getReference("Admin").child("current_orders");
 
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_billing__details);
-        vibrator = (Vibrator)getApplicationContext().getSystemService(Billing_Details.VIBRATOR_SERVICE);
+        vibrator = (Vibrator)getApplicationContext().getSystemService(BillingDetailsActivity.VIBRATOR_SERVICE);
 
         confirmorder = findViewById(R.id.confirmqqorder);
         billing_price = findViewById(R.id.billing_price);
@@ -79,11 +81,17 @@ public class Billing_Details extends AppCompatActivity {
         billing_number = findViewById(R.id.billing_number);
         billing_delivery_charges = findViewById(R.id.billing_delivery_charges);
         billing_amount_final = findViewById(R.id.billing_amount_final);
+        progressDialog = new ProgressDialog(BillingDetailsActivity.this);
+
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog_view);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         edit_billing = findViewById(R.id.edit_billing);
         edit_billing.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {                                  //////////for abhishek
+            public void onClick(View view) {                                  //////////still remains
             }
         });
 
@@ -106,13 +114,13 @@ public class Billing_Details extends AppCompatActivity {
                     billing_address.setText(h_no+", "+land+", "+street+", "+area+", "+pincode);
                 } else {
                     billing_address.setText("Go To Profile Section And Complete Your Profile First");
-                    Toast.makeText(Billing_Details.this, "No Address Found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BillingDetailsActivity.this, "No Address Found", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Billing_Details.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(BillingDetailsActivity.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -126,7 +134,8 @@ public class Billing_Details extends AppCompatActivity {
                         total += i.getItem_Price();
                         billing_price.setText("₹" + String.valueOf(total));
                         billing_amount_final.setText("₹" + String.valueOf(total));
-                        BillingAdapter billingAdapter = new BillingAdapter(Billing_Details.this, item_cart_copy2);
+                        progressDialog.dismiss();
+                        BillingAdapter billingAdapter = new BillingAdapter(BillingDetailsActivity.this, item_cart_copy2);
                         ListView billing_lv = findViewById(R.id.billing_lv);
                         billing_lv.setAdapter(billingAdapter);
                     }
@@ -135,7 +144,7 @@ public class Billing_Details extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Billing_Details.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(BillingDetailsActivity.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -143,12 +152,16 @@ public class Billing_Details extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progress_dialog_view);
+                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 ConnectivityManager manager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = manager.getActiveNetworkInfo();
                 if (networkInfo != null) {
                     StringBuilder s = new StringBuilder();
                     for(int i=0; i<item_cart_copy2.size(); i++){
-                        s.append(item_cart_copy2.get(i).getItem_id()+ "-");
+                        s.append(item_cart_copy2.get(i).getItem_id()+ "x" + item_cart_copy2.get(i).getItem_quant() + "-");
                     }
 
                     DateFormat dateFormat = new SimpleDateFormat("KK:mm:ss a, dd/MM/yyyy", Locale.getDefault());
@@ -189,7 +202,8 @@ public class Billing_Details extends AppCompatActivity {
                 }
 
                 Task<Void> myHistoryRef = database.getReference("users").child(user.getUid()).child("user_cart").removeValue();
-                startActivity(new Intent(Billing_Details.this,Splash_Screen2.class));
+                progressDialog.dismiss();
+                startActivity(new Intent(BillingDetailsActivity.this,Splash_Screen2.class));
                 finish();
             }
         });

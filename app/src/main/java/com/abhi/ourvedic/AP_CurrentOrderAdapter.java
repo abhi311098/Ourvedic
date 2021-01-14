@@ -107,11 +107,13 @@ public class AP_CurrentOrderAdapter extends ArrayAdapter<order_details> {
                                 Log.v("admin history","failed");
                             }
                         });
-                        snapshot.getRef().removeValue();
-                        Toast.makeText(getContext(), "Item is now set to Delivered", Toast.LENGTH_SHORT).show();
-                        Intent intent = ((Activity)view.getContext()).getIntent();
-                        ((Activity)view.getContext()).finish();
-                        ((Activity)view.getContext()).startActivity(intent);
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                            dataSnapshot.getRef().removeValue();
+                            Toast.makeText(getContext(), "Item is now set to Delivered", Toast.LENGTH_SHORT).show();
+                            Intent intent = ((Activity)view.getContext()).getIntent();
+                            ((Activity)view.getContext()).finish();
+                            ((Activity)view.getContext()).startActivity(intent);
+                        }
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {

@@ -9,7 +9,7 @@
             android:icon="@drawable/ic_round_home_24"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_booking"
             android:icon="@drawable/ic_round_book_24"
             android:title="@string/menu_gallery" />
         <item
@@ -20,9 +20,5 @@
             android:id="@+id/profileFragment"
             android:icon="@drawable/ic_round_account_circle_24"
             android:title="@string/profile"/>
-        <item
-            android:id="@+id/logout"
-            android:icon="@drawable/logout"
-            android:title="Logout" />
     </group>
 </menu>

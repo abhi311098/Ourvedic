@@ -92,12 +92,9 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
             ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = manager.getActiveNetworkInfo();
             if (networkInfo != null) {
-
-                item o = new item(currentitem.getItem_id(),currentitem.getItem_local_name(),currentitem.getItem_name(), currentitem.getItem_image(), currentitem.getItem_Price());
-
+                item o = new item(currentitem.getItem_id(),currentitem.getItem_local_name(),currentitem.getItem_name(), currentitem.getItem_image(), currentitem.getItem_Price(), 1);
                 objectList.add(o);
-
-                myRef.setValue(objectList).addOnSuccessListener(new OnSuccessListener<Void>() {
+                myRef.push().setValue(o).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.e(TAG, "onSuccess: done" );
@@ -109,7 +106,7 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
                     }
                 });
                 Toast.makeText(getContext(),"Item added!",Toast.LENGTH_SHORT).show();
-                Vibrator.vibrate(500);
+                Vibrator.vibrate(50);
             }
             else {
                 Toast.makeText(getContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
@@ -127,16 +124,19 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
             move_to_cart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View view) {
-                    final Query myWishlistQuery = myWistlistRef.orderByChild("item_id").equalTo(currentitem.getItem_id());
+                    Query myWishlistQuery = myWistlistRef.orderByChild("item_id").equalTo(currentitem.getItem_id());
                     myWishlistQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             wishlistAlist_copy.add(currentitem);
-                            myRef.setValue(wishlistAlist_copy);
-                            myWishlistQuery.getRef().removeValue();
-                            Intent intent = ((Activity)view.getContext()).getIntent();
-                            ((Activity)view.getContext()).finish();
-                            ((Activity)view.getContext()).startActivity(intent);
+                            myRef.push().setValue(wishlistAlist_copy);
+                            for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                                dataSnapshot.getRef().removeValue();
+                                Toast.makeText(getContext(), "Moved to Cart", Toast.LENGTH_SHORT).show();
+                                Intent intent = ((Activity)view.getContext()).getIntent();
+                                ((Activity)view.getContext()).finish();
+                                ((Activity)view.getContext()).startActivity(intent);
+                            }
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
@@ -150,14 +150,18 @@ public class ListAdapter extends ArrayAdapter<com.abhi.ourvedic.item> {
             wishlist_remove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View view) {
-                    final Query myWishlistQuery = myWistlistRef.orderByChild("item_id").equalTo(currentitem.getItem_id());
+                    final int id = currentitem.getItem_id();
+                    Query myWishlistQuery = database.getReference("users").child(user.getUid()).child("user_wishlist").orderByChild("item_id").equalTo(id);
                     myWishlistQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            myWishlistQuery.getRef().removeValue();
-                            Intent intent = ((Activity)view.getContext()).getIntent();
-                            ((Activity)view.getContext()).finish();
-                            ((Activity)view.getContext()).startActivity(intent);
+                            for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                                dataSnapshot.getRef().removeValue();
+                                Toast.makeText(getContext(), "Item Removed", Toast.LENGTH_SHORT).show();
+                                Intent intent = ((Activity)view.getContext()).getIntent();
+                                ((Activity)view.getContext()).finish();
+                                ((Activity)view.getContext()).startActivity(intent);
+                            }
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {

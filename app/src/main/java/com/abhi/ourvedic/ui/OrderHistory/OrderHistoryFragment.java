@@ -1,5 +1,6 @@
 package com.abhi.ourvedic.ui.OrderHistory;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.abhi.ourvedic.CartActivity;
 import com.abhi.ourvedic.ListAdapter;
 import com.abhi.ourvedic.OrderHistoryAdapter;
 import com.abhi.ourvedic.R;
@@ -35,6 +37,7 @@ public class OrderHistoryFragment extends Fragment {
     private OrderHistoryViewModel orderHistoryViewModel;
 
     ImageView nothing_to_show;
+    ProgressDialog progressDialog;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference orderHistoryRef = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("user_orderHistory");
@@ -44,6 +47,12 @@ public class OrderHistoryFragment extends Fragment {
         orderHistoryViewModel =
                 ViewModelProviders.of(this).get(OrderHistoryViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_order_history, container, false);
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog_view);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         final ArrayList<order_details> orderHistoryAlist = new ArrayList<>();
         nothing_to_show = root.findViewById(R.id.nothing_to_show);
@@ -59,6 +68,7 @@ public class OrderHistoryFragment extends Fragment {
                         for(DataSnapshot dss : snapshot.getChildren()){
                             order_details i = dss.getValue(order_details.class);
                             orderHistoryAlist.add(i);
+                            progressDialog.dismiss();
                             OrderHistoryAdapter itemsAdapter = new OrderHistoryAdapter(getActivity(), orderHistoryAlist);
                             ListView listView = root.findViewById(R.id.lv_order_history);
                             listView.setAdapter(itemsAdapter);
@@ -66,6 +76,7 @@ public class OrderHistoryFragment extends Fragment {
                     }
                     else {
                         nothing_to_show.setVisibility(View.VISIBLE);
+                        progressDialog.dismiss();
                     }
                 }
                 @Override

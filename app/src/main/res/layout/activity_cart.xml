@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone"
-        android:translationY="-20dp">
+        android:translationY="-40dp">
         <ImageView
             android:id="@+id/iv_emptyCart_"
             android:layout_width="match_parent"
@@ -26,7 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your Cart is Empty!"
-            android:textColor="@android:color/black"
             android:textAppearance="?android:textAppearanceMedium"
             android:layout_below="@id/iv_emptyCart_"
             android:layout_centerHorizontal="true" />

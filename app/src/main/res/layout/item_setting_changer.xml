@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -45,14 +46,15 @@
             android:textSize="16sp"/>
         <RelativeLayout
             android:id="@+id/relativeLayout"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_strokes"
             android:layout_alignParentEnd="true">
-
             <ImageView
                 android:id="@+id/add"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="5dp"
                 android:layout_toEndOf="@id/item_price"
@@ -73,7 +75,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/rupee_symbol"
+                android:background="@android:color/transparent"
+                android:layout_toEndOf="@id/rupee_symbol"
                 android:gravity="center"
                 android:hint="  100  "
                 android:inputType="number"
@@ -81,16 +84,9 @@
                 android:paddingBottom="5dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:background="@drawable/bg_strokes"
                 android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textSize="15sp" />
         </RelativeLayout>
-        <View
-            android:id="@+id/divider"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="?android:attr/listDivider"
-            android:layout_toStartOf="@id/relativeLayout"/>
     </RelativeLayout>
 
 </LinearLayout>

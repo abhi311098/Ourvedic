@@ -1,6 +1,7 @@
 package com.abhi.ourvedic;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -56,7 +57,7 @@ public class AP_ItemSettingAdapter extends ArrayAdapter<item> {
         numberTextView.setText(currentitem.getItem_name());
 
         final EditText priceTextView = listItemView.findViewById(R.id.item_price);
-        priceTextView.setText("₹" + String.valueOf(currentitem.getItem_Price()));
+        priceTextView.setText(String.valueOf(currentitem.getItem_Price()));
 
         ImageView imageResource = listItemView.findViewById(R.id.image);
         imageResource.setImageResource(currentitem.getItem_image());

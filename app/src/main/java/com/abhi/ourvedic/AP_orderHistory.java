@@ -3,6 +3,7 @@ package com.abhi.ourvedic;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class AP_orderHistory extends AppCompatActivity {
 
     ListView lv_ap_orderHistory;
+    ProgressDialog progressDialog;
     ArrayList <order_details> orderHistoryAlist;
     String orderId, name, email, itemIds, delivery_address, mob, mode_of_payment, order_date_time, delivered_date_time;
     int final_amount;
@@ -32,6 +34,12 @@ public class AP_orderHistory extends AppCompatActivity {
         setContentView(R.layout.activity_ap_order_history);
         orderHistoryAlist = new ArrayList<>();
         nothing_to_show = findViewById(R.id.nothing_to_show);
+
+        progressDialog = new ProgressDialog(AP_orderHistory.this);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog_view);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         adminCurrentOrderRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -53,6 +61,7 @@ public class AP_orderHistory extends AppCompatActivity {
                         order_details o = new order_details(name , email, itemIds, delivery_address, mob, final_amount, mode_of_payment, order_date_time, delivered_date_time);
                         orderHistoryAlist.add(o);
 
+                        progressDialog.dismiss();
                         lv_ap_orderHistory = findViewById(R.id.lv_ap_orderHistory);
                         AP_orderHistoryAdapter orderHistoryAdapter = new AP_orderHistoryAdapter(AP_orderHistory.this, orderHistoryAlist);
                         lv_ap_orderHistory.setAdapter(orderHistoryAdapter);
@@ -60,6 +69,7 @@ public class AP_orderHistory extends AppCompatActivity {
                 }
                 else {
                     nothing_to_show.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
                 }
             }
 

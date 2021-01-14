@@ -3,6 +3,7 @@ package com.abhi.ourvedic;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,7 +29,7 @@ public class WishlistActivity extends AppCompatActivity {
     ListView lv_wishlist;
     ArrayList<item> wishlistAlist;
     RelativeLayout emptyWishlist;
-
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,12 @@ public class WishlistActivity extends AppCompatActivity {
         wishlistAlist = new ArrayList<>();
         emptyWishlist = findViewById(R.id.emptyWishlist);
 
+        progressDialog = new ProgressDialog(WishlistActivity.this);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog_view);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
         wishlistRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -46,12 +53,14 @@ public class WishlistActivity extends AppCompatActivity {
                     emptyWishlist.setVisibility(View.GONE);
                     for(DataSnapshot dss : snapshot.getChildren()){
                         wishlistAlist.add(dss.getValue(item.class));
+                        progressDialog.dismiss();
                         ListAdapter wishlistAdapter = new ListAdapter(WishlistActivity.this, wishlistAlist, true);
                         lv_wishlist.setAdapter(wishlistAdapter);
                     }
                 }
                 else {
                     emptyWishlist.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
                 }
             }
             @Override

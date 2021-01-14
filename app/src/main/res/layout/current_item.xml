@@ -76,6 +76,48 @@
             android:layout_below="@id/tv_order_date"
             android:layout_marginTop="3dp"
             android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/tv_mop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mode Of Payment:"
+            android:layout_below="@id/rv"
+            android:layout_marginTop="3dp"
+            android:textColor="@android:color/black"/>
+        <TextView
+            android:id="@+id/mop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="COD"
+            android:layout_below="@id/tv_mop"
+            android:textColor="@android:color/black"/>
+        <RelativeLayout
+            android:id="@+id/rv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_delivery_date">
+            <TextView
+                android:id="@+id/tv_billing_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:text="Total : ₹"
+                android:textAppearance="?android:textAppearanceMedium"/>
+            <TextView
+                android:id="@+id/billing_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:layout_marginTop="3dp"
+                tools:text="1000"
+                android:layout_toEndOf="@id/tv_billing_total"
+                android:textAppearance="?android:textAppearanceMedium"/>
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/tv_itemnames"
             android:layout_width="wrap_content"
@@ -83,18 +125,18 @@
             android:text="Item Names: "
             android:visibility="gone"
             android:textColor="@android:color/black"
-            android:layout_below="@id/tv_delivery_date"
+            android:layout_below="@id/mop"
             android:textAppearance="?android:textAppearanceMedium"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="3dp"/>
         <TextView
             android:id="@+id/tv_itemIds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Item Ids: "
             android:textColor="@android:color/black"
-            android:layout_below="@id/tv_delivery_date"
+            android:layout_below="@id/mop"
             android:textAppearance="?android:textAppearanceMedium"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="3dp"/>
         <TextView
             android:id="@+id/itemIds"
             android:layout_width="wrap_content"
@@ -128,60 +170,17 @@
             android:id="@+id/relativeLayout"
             android:layout_width="150dp"
             android:padding="10dp"
-            android:layout_marginTop="32dp"
+            android:layout_below="@id/delivey_date"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true">
 
-            <TextView
-                android:id="@+id/tv_mop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mode Of Payment:"
-                android:layout_below="@id/rv"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="3dp"
-                android:textColor="@android:color/black"/>
-            <TextView
-                android:id="@+id/mop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="COD"
-                android:layout_marginStart="5dp"
-                android:layout_below="@id/tv_mop"
-                android:textColor="@android:color/black"/>
-
-            <RelativeLayout
-                android:id="@+id/rv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp">
-                <TextView
-                    android:id="@+id/tv_billing_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:text="Total : ₹"
-                    android:textAppearance="?android:textAppearanceMedium"/>
-
-                <TextView
-                    android:id="@+id/billing_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    tools:text="1000"
-                    android:layout_toEndOf="@id/tv_billing_total"
-                    android:textAppearance="?android:textAppearanceMedium"/>
-            </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/if_delivered"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_strokes"
                 android:layout_marginTop="10dp"
-                android:paddingStart="3dp"
-                android:layout_below="@id/mop">
+                android:paddingStart="3dp">
                 <ImageView
                     android:id="@+id/add"
                     android:layout_width="40dp"

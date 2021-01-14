@@ -68,19 +68,25 @@ public class OrderHistoryAdapter extends ArrayAdapter<order_details> {
 
         TextView tv_itemnames = listItemView.findViewById(R.id.tv_itemnames);
         tv_itemnames.setVisibility(View.VISIBLE);
-        TextView tv_itemIds = listItemView.findViewById(R.id.tv_itemIds);
+        final TextView tv_itemIds = listItemView.findViewById(R.id.tv_itemIds);
         tv_itemIds.setVisibility(View.INVISIBLE);
         final TextView itemIds = listItemView.findViewById(R.id.itemIds);
         List<String> namesAlist = Arrays.asList(currentOrder.getItemIds().split("-"));
         final ArrayList<String> names = new ArrayList<>();
-        for(String s : namesAlist){
-            Query q = all_itemRef.orderByChild("item_local_name").equalTo(s);
+        for(final String s : namesAlist){
+            Log.v("id", s);
+            Query q = all_itemRef.orderByChild("item_id").equalTo(Integer.parseInt(s.substring(0,3)));
             q.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    names.add((String) snapshot.getValue());
-                    Log.v("id", String.valueOf(names.get(0)==null));
-                    itemIds.setText(names.toString());
+                    if(snapshot.exists()){
+                        for(DataSnapshot dss: snapshot.getChildren()){
+                            item d = dss.getValue(item.class);
+                            names.add(d.getItem_local_name() + s.substring(3,s.length()));
+                            Log.v("id", String.valueOf(names.get(0)==null));
+                            itemIds.setText(names.toString());
+                        }
+                    }
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
