@@ -19,44 +19,12 @@
             app:cardElevation="8dp">
 
             <RelativeLayout
-                android:id="@+id/dharamashala_rl"
-                android:layout_width="match_parent"
-                android:background="@color/colorPrimary"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/Dharamshala_img"
-                    android:src="@drawable/h104"
-                    android:scaleType="centerCrop"
-                    android:layout_height="150dp"
-                    android:layout_width="match_parent" />
-                <TextView
-                    android:id="@+id/tv_Dharamshala"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/Dharamshala_img"
-                    android:text="Open Dharamshala Booking"
-                    android:layout_marginBottom="15dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="15dp"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:textSize="20sp" />
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            app:cardElevation="8dp">
-
-            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/pandit_img"
-                    android:src="@drawable/h101"
-                    android:scaleType="centerCrop"
+                    android:src="@drawable/pandit"
+
                     android:layout_height="150dp"
                     android:layout_width="match_parent" />
                 <TextView
@@ -65,20 +33,13 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/pandit_img"
                     android:text="Pandit Ji"
+                    android:textStyle="bold"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    android:layout_marginTop="5dp"
+                    android:textSize="18sp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginStart = "15dp" />
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Price : 1000rs"
-                    android:textColor="@android:color/black"
-                    android:layout_below="@id/tv_pandit"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginStart="15dp"/>
-                <TextView
+                    android:id="@+id/add_panditji"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="    Add    "
@@ -107,8 +68,7 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/molvi_img"
-                    android:src="@drawable/h102"
-                    android:scaleType="centerCrop"
+                    android:src="@drawable/molvi"
                     android:layout_height="150dp"
                     android:layout_width="match_parent" />
                 <TextView
@@ -117,21 +77,14 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/molvi_img"
                     android:text="Molvi Ji"
+                    android:textStyle="bold"
                     android:gravity="center_vertical"
                     android:textColor="@android:color/black"
-                    android:textSize="16dp"
-                    android:layout_marginTop="5dp"
+                    android:textSize="18sp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginStart="15dp" />
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Price : 1000rs"
-                    android:textColor="@android:color/black"
-                    android:layout_below="@id/tv_molvi"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginStart="15dp"/>
-                <TextView
+                    android:id="@+id/add_Molviji"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="    Add    "
@@ -159,31 +112,22 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/father_img"
-                    android:src="@drawable/h103"
-                    android:scaleType="centerCrop"
+                    android:src="@drawable/father"
                     android:layout_height="150dp"
                     android:layout_width="match_parent" />
                 <TextView
-                    android:id="@+id/tv_father"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/father_img"
                     android:text="Father"
                     android:gravity="center_vertical"
                     android:textColor="@android:color/black"
-                    android:textSize="16dp"
-                    android:layout_marginTop="5dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="15dp"
                     android:layout_marginStart="15dp" />
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Price : 1000rs"
-                    android:textColor="@android:color/black"
-                    android:layout_below="@id/tv_father"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginStart="15dp"/>
-                <TextView
+                    android:id="@+id/add_father"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="    Add    "

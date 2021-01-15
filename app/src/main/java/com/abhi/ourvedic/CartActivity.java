@@ -46,8 +46,6 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-
-
         place_order_tv = findViewById(R.id.place_order_tv);
         emptyCart = findViewById(R.id.iv_emptyCart);
         progressDialog = new ProgressDialog(CartActivity.this);
@@ -77,8 +75,8 @@ public class CartActivity extends AppCompatActivity {
                         ListView cart_item = findViewById(R.id.cart_item);
                         progressDialog.dismiss();
                         cart_item.setAdapter(cartAdapter);
-                        TextView cart_total = findViewById(R.id.cart_total);
-                        cart_total.setText("₹" + String.valueOf(total));
+                        //TextView cart_total = findViewById(R.id.cart_total);      //unstable
+                        //cart_total.setText("₹" + String.valueOf(total));
                     }
                 }
                 else {

@@ -44,7 +44,7 @@ public class AP_ItemSettings extends AppCompatActivity {
 
 
     private void refresh(){
-        all_itemRef.removeValue();
+        //all_itemRef.getRef().removeValue();
         itemArrayList.add(new item(101, "Agarbatti", "Incense stick",R.drawable.h101, 100));
         itemArrayList.add(new item(102, "Ghee", "Ghee",R.drawable.h102, 100));
         itemArrayList.add(new item(103, "Kumkuma", "Kumkuma",R.drawable.h103, 100));
@@ -83,7 +83,7 @@ public class AP_ItemSettings extends AppCompatActivity {
     }
 
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.item_settings_menu, menu);
         return true;
@@ -92,11 +92,11 @@ public class AP_ItemSettings extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.refresh) {
-            refresh();
+            //refresh();
             return true;
         }
         return(super.onOptionsItemSelected(item));
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +112,8 @@ public class AP_ItemSettings extends AppCompatActivity {
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         itemArrayList = new ArrayList<>();
+
+        //refresh();
 
         ConnectivityManager manager = (ConnectivityManager) getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
