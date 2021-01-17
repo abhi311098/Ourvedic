@@ -58,6 +58,7 @@ public class BillingDetailsActivity extends AppCompatActivity {
     TextView billing_address;
     ImageView edit_billing;
     Vibrator vibrator;
+    boolean address_filled;
 
     String h_no,area,pincode,street,land;
 
@@ -73,6 +74,8 @@ public class BillingDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_billing__details);
         vibrator = (Vibrator)getApplicationContext().getSystemService(BillingDetailsActivity.VIBRATOR_SERVICE);
+
+        address_filled = false;
 
         confirmorder = findViewById(R.id.confirmqqorder);
         billing_price = findViewById(R.id.billing_price);
@@ -112,6 +115,7 @@ public class BillingDetailsActivity extends AppCompatActivity {
                     mob = snapshot.child("number").getValue(String.class);
                     billing_number.setText(mob);
                     billing_address.setText(h_no+", "+land+", "+street+", "+area+", "+pincode);
+                    address_filled = true;
                 } else {
                     billing_address.setText("Go To Profile Section And Complete Your Profile First");
                     Toast.makeText(BillingDetailsActivity.this, "No Address Found", Toast.LENGTH_SHORT).show();
@@ -152,59 +156,64 @@ public class BillingDetailsActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                progressDialog.setCancelable(false);
-                progressDialog.show();
-                progressDialog.setContentView(R.layout.progress_dialog_view);
-                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                ConnectivityManager manager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-                if (networkInfo != null) {
-                    StringBuilder s = new StringBuilder();
-                    for(int i=0; i<item_cart_copy2.size(); i++){
-                        s.append(item_cart_copy2.get(i).getItem_id()+ "x" + item_cart_copy2.get(i).getItem_quant() + "-");
+                if (address_filled){
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+                    progressDialog.setContentView(R.layout.progress_dialog_view);
+                    progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    ConnectivityManager manager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+                    if (networkInfo != null) {
+                        StringBuilder s = new StringBuilder();
+                        for(int i=0; i<item_cart_copy2.size(); i++){
+                            s.append(item_cart_copy2.get(i).getItem_id()+ "x" + item_cart_copy2.get(i).getItem_quant() + "-");
+                        }
+
+                        DateFormat dateFormat = new SimpleDateFormat("KK:mm:ss a, dd/MM/yyyy", Locale.getDefault());
+                        String currentDateAndTime = dateFormat.format(new Date());
+
+                        String address = h_no+", "+land+", "+street+", "+area+", "+pincode;
+                        order_details o = new order_details(name, email, String.valueOf(s), address, mob, total, "cash On Delivery", currentDateAndTime, "NA");
+
+                        Log.v("Tags", o.getName() + "-" + o.getEmail() + "-" + o.getItemIds() + "-" + o.getDelivery_address() + "-" + o.getMobile() + "-" + total + "-" + o.getMode_of_payment() + "-" + o.getDelivered_date_time() + "-" + o.getDelivered_date_time());
+
+                        myHistoryRef.push().setValue(o).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.e(TAG, "History Success: done" );
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e(TAG, "History Failure: fail: "+e.getMessage());
+                            }
+                        });
+
+                        adminRef.push().setValue(o).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.e(TAG, "Current Order Success: done" );
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e(TAG, "Current Order Failure: fail: "+e.getMessage());
+                            }
+                        });
+                        vibrator.vibrate(100);
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
                     }
 
-                    DateFormat dateFormat = new SimpleDateFormat("KK:mm:ss a, dd/MM/yyyy", Locale.getDefault());
-                    String currentDateAndTime = dateFormat.format(new Date());
-
-                    String address = h_no+", "+land+", "+street+", "+area+", "+pincode;
-                    order_details o = new order_details(name, email, String.valueOf(s), address, mob, total, "cash On Delivery", currentDateAndTime, "NA");
-
-                    Log.v("Tags", o.getName() + "-" + o.getEmail() + "-" + o.getItemIds() + "-" + o.getDelivery_address() + "-" + o.getMobile() + "-" + total + "-" + o.getMode_of_payment() + "-" + o.getDelivered_date_time() + "-" + o.getDelivered_date_time());
-
-                    myHistoryRef.push().setValue(o).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.e(TAG, "History Success: done" );
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.e(TAG, "History Failure: fail: "+e.getMessage());
-                        }
-                    });
-
-                    adminRef.push().setValue(o).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.e(TAG, "Current Order Success: done" );
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.e(TAG, "Current Order Failure: fail: "+e.getMessage());
-                        }
-                    });
-                    vibrator.vibrate(500);
+                    Task<Void> myHistoryRef = database.getReference("users").child(user.getUid()).child("user_cart").removeValue();
+                    progressDialog.dismiss();
+                    startActivity(new Intent(BillingDetailsActivity.this,Splash_Screen2.class));
+                    finish();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please Fill the Address", Toast.LENGTH_SHORT).show();
                 }
-
-                Task<Void> myHistoryRef = database.getReference("users").child(user.getUid()).child("user_cart").removeValue();
-                progressDialog.dismiss();
-                startActivity(new Intent(BillingDetailsActivity.this,Splash_Screen2.class));
-                finish();
             }
         });
     }
